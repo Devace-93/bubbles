@@ -8,6 +8,7 @@
     "legacy": {
       "name": "@bubbles/legacy",
       "dependencies": {
+        "@fontsource/luckiest-guy": "^5.2.8",
         "gsap": "1.13.2",
         "jquery": "github:components/jquery#1.8.3",
       },
@@ -15,6 +16,7 @@
     "remaster": {
       "name": "@bubbles/remaster",
       "dependencies": {
+        "@fontsource/luckiest-guy": "^5.2.8",
         "phaser": "3",
       },
       "devDependencies": {
@@ -34,6 +36,8 @@
     "@emnapi/runtime": ["@emnapi/runtime@1.11.1", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-vgj7R3y3Wgx24IQaGPA/R6YFXLHVMOZ0uVEyIQPaWs+rd1AzfEMXlAC22FYwO1XkKR6NPsq7mUandH8oIRdZFw=="],
 
     "@emnapi/wasi-threads": ["@emnapi/wasi-threads@1.2.2", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-c95qOXkHdydNKhscBTebqEC1CVAZpyqOfVfBzQ1qgzyl3gfeldUjIggDbIZgDKsHLgnsM+igH7TJ/eAasaVuMA=="],
+
+    "@fontsource/luckiest-guy": ["@fontsource/luckiest-guy@5.2.8", "", {}, "sha512-S1k8+PNHSdDkJy9f+0WIx8rfScj3BZTVgBQehMOtpYOwXZ4wZC1+D++NACbfdG9Ve2glVz1boLXjJMCeVPLifA=="],
 
     "@napi-rs/wasm-runtime": ["@napi-rs/wasm-runtime@1.1.6", "", { "dependencies": { "@tybys/wasm-util": "^0.10.3" }, "peerDependencies": { "@emnapi/core": "^1.7.1", "@emnapi/runtime": "^1.7.1" } }, "sha512-ZLv/JdUfkvOy9eCnnBaGfiO+XimbjebAeO+MRQqD/B+FR1tnRN0tpKSJHRbE8sFfS6aqsXZ67TQjfwfsxULVbg=="],
 

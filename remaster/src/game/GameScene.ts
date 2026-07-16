@@ -177,9 +177,8 @@ export class GameScene extends Phaser.Scene {
     this.sound.play("BEEP");
     const num = this.add
       .text(GAME_WIDTH / 2, GAME_HEIGHT / 2, String(n), {
-        fontFamily: "system-ui, sans-serif",
+        fontFamily: '"Luckiest Guy", system-ui, sans-serif',
         fontSize: "220px",
-        fontStyle: "bold",
         color: "#ffffff",
       })
       .setOrigin(0.5)
@@ -246,8 +245,9 @@ export class GameScene extends Phaser.Scene {
     const item = this.add.container(x, GAME_HEIGHT + 90, [fruit, bubble]);
     item.setSize(170, 170);
     item.setData({ kind, popped: false });
+    // container hit areas are in size-box space: (0,0) is the top-left corner
     item.setInteractive(
-      new Phaser.Geom.Circle(0, 0, 85),
+      new Phaser.Geom.Circle(85, 85, 85),
       Phaser.Geom.Circle.Contains,
     );
     item.on("pointerdown", () => this.popItem(item));

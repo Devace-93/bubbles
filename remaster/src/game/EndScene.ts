@@ -31,7 +31,12 @@ export class EndScene extends Phaser.Scene {
     const title = { fontFamily: "system-ui, sans-serif", fontStyle: "bold", color: "#ffffff" };
     let y = 130;
     this.add
-      .text(GAME_WIDTH / 2, y, `${s.finalScore}: ${r.score}`, { ...title, fontSize: "56px", color: "#ffb347" })
+      .text(GAME_WIDTH / 2, y, `${s.finalScore}: ${r.score}`, {
+        ...title,
+        fontFamily: '"Luckiest Guy", system-ui, sans-serif',
+        fontSize: "56px",
+        color: "#ffb347",
+      })
       .setOrigin(0.5);
     y += 64;
     this.add

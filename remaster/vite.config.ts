@@ -14,9 +14,7 @@ function legacyAssets(): Plugin {
       const legacy = resolve(here, "../legacy");
       const out = resolve(here, "public/assets");
       mkdirSync(out, { recursive: true });
-      for (const dir of ["sounds", "fonts"]) {
-        cpSync(resolve(legacy, dir), resolve(out, dir), { recursive: true });
-      }
+      cpSync(resolve(legacy, "sounds"), resolve(out, "sounds"), { recursive: true });
     },
   };
 }

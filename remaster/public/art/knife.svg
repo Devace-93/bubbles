@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40">
+  <!-- Original art for Bubbles (MIT). Knife cursor; hotspot at the tip (2,2). -->
+  <g transform="rotate(45 20 20)">
+    <path d="M20 -6 C15 4 14 14 15 24 L25 24 C26 14 25 4 20 -6 Z" fill="#d7dee4" stroke="#8b98a3" stroke-width="1.5"/>
+    <path d="M20 -6 C17 2 16 12 16.5 22 L20 22 Z" fill="#f2f6f9"/>
+    <rect x="15.5" y="24" width="9" height="4" rx="1" fill="#8b98a3"/>
+    <rect x="17" y="28" width="6" height="16" rx="3" fill="#7a4a21"/>
+    <rect x="17" y="31" width="6" height="2" fill="#5c3517"/>
+    <rect x="17" y="36" width="6" height="2" fill="#5c3517"/>
+  </g>
+</svg>

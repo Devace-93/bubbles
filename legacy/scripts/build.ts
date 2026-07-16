@@ -9,7 +9,7 @@ const outDir = resolve(process.env.OUT_DIR || join(legacyDir, "../dist/classic")
 const INCLUDE = [
   "index.html",
   "css",
-  "fonts",
+  
   "images",
   "img",
   "javascripts",

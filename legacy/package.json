@@ -3,6 +3,7 @@
   "private": true,
   "description": "Original 2015 jQuery version of the Bubbles game, served as the 'classic' edition",
   "dependencies": {
+    "@fontsource/luckiest-guy": "^5.2.8",
     "gsap": "1.13.2",
     "jquery": "github:components/jquery#1.8.3"
   },

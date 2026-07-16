@@ -75,8 +75,10 @@ challenged friends with a banner.
 - Remaster art (fruits, vegetables, badges, bubble): original SVGs made for
   this project, MIT-licensed with the code.
 - Sound effects: from the original 2015 game.
-- "Marujo" display font by PintassilgoPrints (webfont files from the original
-  project).
+- Display font: [Luckiest Guy](https://fonts.google.com/specimen/Luckiest+Guy)
+  (Apache 2.0), self-hosted via `@fontsource/luckiest-guy`. It replaced the
+  commercial "Marujo" font the 2015 game used; legacy CSS keeps the old
+  family alias.
 
 ## License
 

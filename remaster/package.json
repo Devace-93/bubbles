@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource/luckiest-guy": "^5.2.8",
     "phaser": "3"
   },
   "devDependencies": {

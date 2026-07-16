@@ -33,9 +33,8 @@ export class PreloadScene extends Phaser.Scene {
     // A user gesture is required before the browser lets audio play.
     this.add
       .text(GAME_WIDTH / 2, GAME_HEIGHT * 0.3, "BUBBLES", {
-        fontFamily: "system-ui, sans-serif",
+        fontFamily: '"Luckiest Guy", system-ui, sans-serif',
         fontSize: "110px",
-        fontStyle: "bold",
         color: "#ffffff",
         stroke: "#0a4d6e",
         strokeThickness: 12,

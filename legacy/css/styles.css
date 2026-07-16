@@ -62,14 +62,13 @@ a{
 	display: none !important;
 }
 
+/* The original commercial "Marujo" webfont was replaced by Luckiest Guy
+   (Apache 2.0), installed by bun and copied into vendor/ at build time.
+   The family alias is kept so the rest of this stylesheet stays untouched. */
 @font-face {
     font-family: 'marujoregular';
-    src: url(../fonts/pintassilgoprints_-_marujo-webfont.eot);
-    src: url(../fonts/pintassilgoprints_-_marujo-webfont.eot?#iefix) format('embedded-opentype'),
-         url(../fonts/pintassilgoprints_-_marujo-webfont.woff2) format('woff2'),
-         url(../fonts/pintassilgoprints_-_marujo-webfont.woff) format('woff'),
-         url(../fonts/pintassilgoprints_-_marujo-webfont.ttf) format('truetype'),
-         url(../fonts/pintassilgoprints_-_marujo-webfont.svg#marujoregular) format('svg');
+    src: url(../vendor/fonts/luckiest-guy-latin-400-normal.woff2) format('woff2'),
+         url(../vendor/fonts/luckiest-guy-latin-400-normal.woff) format('woff');
     font-weight: normal;
     font-style: normal;
 }

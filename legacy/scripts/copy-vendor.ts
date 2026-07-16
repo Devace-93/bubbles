@@ -15,6 +15,8 @@ const FILES: Array<[from: string, to: string]> = [
   ["gsap/src/minified/TimelineLite.min.js", "gsap/TimelineLite.min.js"],
   ["gsap/src/minified/plugins/CSSPlugin.min.js", "gsap/plugins/CSSPlugin.min.js"],
   ["gsap/src/minified/easing/EasePack.min.js", "gsap/easing/EasePack.min.js"],
+  ["@fontsource/luckiest-guy/files/luckiest-guy-latin-400-normal.woff2", "fonts/luckiest-guy-latin-400-normal.woff2"],
+  ["@fontsource/luckiest-guy/files/luckiest-guy-latin-400-normal.woff", "fonts/luckiest-guy-latin-400-normal.woff"],
 ];
 
 for (const [from, to] of FILES) {
