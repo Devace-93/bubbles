@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <!-- Original art for Bubbles (MIT). Flat apple. -->
+  <path d="M64 40 C50 26 26 30 20 52 C14 76 30 104 46 112 C54 116 58 112 64 112 C70 112 74 116 82 112 C98 104 114 76 108 52 C102 30 78 26 64 40 Z" fill="#e8384f"/>
+  <path d="M64 40 C54 30 38 28 28 38 C22 46 20 56 22 66 C26 92 40 108 50 113 C42 100 32 82 32 62 C32 50 40 42 52 40 Z" fill="#c92640"/>
+  <path d="M62 40 C60 28 56 20 46 14 C46 26 50 34 62 40 Z" fill="#57b25e"/>
+  <rect x="61" y="18" width="6" height="24" rx="3" fill="#7a4a21"/>
+  <circle cx="46" cy="54" r="7" fill="#ffffff" opacity="0.35"/>
+</svg>

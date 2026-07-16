@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <!-- Original art for Bubbles (MIT). Flat carrot (−7 item). -->
+  <path d="M50 42 C38 54 34 84 46 106 C52 116 60 120 66 114 C84 96 94 62 86 46 C78 32 60 32 50 42 Z" fill="#f5941e"/>
+  <path d="M50 42 C40 52 36 78 44 100 C40 78 44 58 56 44 C62 38 72 36 80 40 C70 32 58 34 50 42 Z" fill="#dd7d0c"/>
+  <g stroke="#c96f08" stroke-width="4" stroke-linecap="round">
+    <line x1="52" y1="62" x2="64" y2="60"/>
+    <line x1="52" y1="80" x2="66" y2="78"/>
+    <line x1="56" y1="98" x2="66" y2="96"/>
+  </g>
+  <path d="M66 36 C60 24 60 14 68 6 C70 16 70 26 66 36 Z" fill="#57b25e" transform="rotate(14 66 22)"/>
+  <path d="M70 38 C72 24 80 16 92 14 C88 26 80 34 70 38 Z" fill="#3e9b4f"/>
+  <path d="M62 38 C54 28 44 24 32 26 C40 36 50 40 62 38 Z" fill="#3e9b4f"/>
+</svg>

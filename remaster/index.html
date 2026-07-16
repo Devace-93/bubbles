@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bubbles — pop the fruit, beat the clock</title>
+    <meta name="description" content="Pop fruit bubbles before time runs out. Free arcade mini-game — remastered, with the original 2015 classic included." />
+    <link rel="icon" href="/art/blackberry.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Bubbles — pop the fruit, beat the clock" />
+    <meta property="og:description" content="Pop fruit bubbles before time runs out. Can you beat my score?" />
+    <meta property="og:url" content="https://bubbles.3m4.net/" />
+    <meta property="og:image" content="https://bubbles.3m4.net/og/share.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+  </head>
+  <body>
+    <div id="app">
+      <button id="lang-toggle" type="button" aria-label="Language"></button>
+      <div id="banner" hidden></div>
+      <main class="hero">
+        <h1 class="title">BUBBLES</h1>
+        <p class="tagline" data-i18n="tagline"></p>
+        <section class="howto" aria-labelledby="howto-title">
+          <h2 id="howto-title" class="visually-hidden" data-i18n="howToTitle"></h2>
+          <div class="how-card">
+            <img src="/art/strawberry.svg" alt="" />
+            <b data-i18n="howPop"></b><span data-i18n="howPopSub"></span>
+          </div>
+          <div class="how-card">
+            <img src="/art/broccoli.svg" alt="" />
+            <b data-i18n="howAvoid"></b><span data-i18n="howAvoidSub"></span>
+          </div>
+          <div class="how-card">
+            <img src="/art/blackberry.svg" alt="" />
+            <b data-i18n="howTime"></b><span data-i18n="howTimeSub"></span>
+          </div>
+          <div class="how-card">
+            <img src="/art/badge_plus50.svg" alt="" />
+            <b data-i18n="howStreak"></b><span data-i18n="howStreakSub"></span>
+          </div>
+        </section>
+        <nav class="buttons">
+          <a class="btn btn-play" href="/play/" data-i18n="play"></a>
+          <a class="btn btn-classic" href="/classic/" data-i18n="classic"></a>
+        </nav>
+      </main>
+      <footer>
+        <span data-i18n="madeBy"></span>
+        <a href="https://github.com/Devace-93/bubbles" data-i18n="source"></a>
+        <button id="share-btn" type="button" data-i18n="share"></button>
+      </footer>
+    </div>
+    <canvas id="bg" aria-hidden="true"></canvas>
+    <script type="module" src="/src/home.ts"></script>
+  </body>
+</html>

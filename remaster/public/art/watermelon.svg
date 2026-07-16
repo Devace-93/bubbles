@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <!-- Original art for Bubbles (MIT). Watermelon slice. -->
+  <path d="M14 44 A58 58 0 0 0 114 44 L64 44 Z" fill="#2f8f46" transform="rotate(180 64 64)"/>
+  <path d="M20 84 A50 50 0 0 0 108 84 L64 84 Z" fill="#eaf5d3" transform="rotate(180 64 64)"/>
+  <path d="M25 80 A44 44 0 0 0 103 80 L64 80 Z" fill="#f04f58" transform="rotate(180 64 64)"/>
+  <g fill="#332222">
+    <ellipse cx="50" cy="52" rx="3" ry="4.4" transform="rotate(14 50 52)"/>
+    <ellipse cx="78" cy="52" rx="3" ry="4.4" transform="rotate(-14 78 52)"/>
+    <ellipse cx="64" cy="36" rx="3" ry="4.4"/>
+    <ellipse cx="40" cy="34" rx="3" ry="4.4" transform="rotate(24 40 34)"/>
+    <ellipse cx="88" cy="34" rx="3" ry="4.4" transform="rotate(-24 88 34)"/>
+  </g>
+</svg>

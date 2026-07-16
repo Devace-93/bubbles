@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <!-- Original art for Bubbles (MIT). Flat pear. -->
+  <path d="M64 34 C58 34 54 42 52 52 C48 64 34 68 32 84 C30 102 44 116 64 116 C84 116 98 102 96 84 C94 68 80 64 76 52 C74 42 70 34 64 34 Z" fill="#a8c94a"/>
+  <path d="M64 116 C48 114 36 102 38 86 C39 74 48 68 54 58 C50 70 44 76 44 88 C44 102 52 112 64 116 Z" fill="#8fb336"/>
+  <rect x="61" y="14" width="6" height="24" rx="3" fill="#7a4a21"/>
+  <path d="M66 24 C74 14 86 12 96 18 C88 28 76 30 66 24 Z" fill="#57b25e"/>
+  <circle cx="52" cy="88" r="7" fill="#ffffff" opacity="0.35"/>
+</svg>

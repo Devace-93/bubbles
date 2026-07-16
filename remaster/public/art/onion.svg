@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <!-- Original art for Bubbles (MIT). Flat red onion (−7 item). -->
+  <path d="M64 38 C40 46 26 62 26 82 C26 102 42 116 64 116 C86 116 102 102 102 82 C102 62 88 46 64 38 Z" fill="#a2527f"/>
+  <path d="M64 38 C48 44 36 54 31 68 C28 78 28 90 34 100 C28 84 34 62 50 50 C56 45 60 42 64 38 Z" fill="#83375f"/>
+  <path d="M64 42 C52 56 48 78 54 112 M64 42 C76 56 80 78 74 112" stroke="#c77aa4" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M58 38 C54 30 54 22 58 14 L64 26 L70 14 C74 22 74 30 70 38 C66 42 62 42 58 38 Z" fill="#b98a4a"/>
+  <circle cx="48" cy="66" r="6" fill="#ffffff" opacity="0.3"/>
+</svg>
