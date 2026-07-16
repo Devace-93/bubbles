@@ -35,6 +35,15 @@ bun run dev:legacy   # classic game → http://localhost:8015
 bun run build        # full site → dist/ (homepage + /play/ + /classic/)
 ```
 
+### Docker
+
+The whole site can be built and served as a container (bun build stage +
+nginx):
+
+```sh
+docker compose up --build   # → http://localhost:8080
+```
+
 ## Project structure
 
 ```

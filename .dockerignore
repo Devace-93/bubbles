@@ -1,0 +1,12 @@
+.git
+node_modules
+**/node_modules
+dist
+legacy/vendor
+remaster/public/assets
+.lavish
+.playwright-mcp
+.github
+Dockerfile
+compose.yaml
+*.md
