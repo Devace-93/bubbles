@@ -1,0 +1,91 @@
+<div class="timer tablafinal">
+   <p class="timer_c" style="display: block;">Puntuación...</p>
+   {foreach $marcadores as $i => $v}
+   <br>
+   <table class="puntos_tabla" cellspacing="0" style="
+      margin: 0 auto;
+      " cellborder="0">
+      <tbody>
+         <tr>
+            <td colspan="3" class="title_table">
+               {$v.title}
+            </td>
+            <td width="20%"></td>
+         </tr>
+         {foreach $v.items as $i2 => $item}
+         <tr>
+            <td class="{$item.clase}">
+               {$item.pts_unidad} {$item.pts}
+            </td>
+            <td width="10%">
+               {$item.x}
+            </td>
+            <td width="50%" >
+               {$item.cantidad} ({$item.name})
+            </td>
+            <td width="20%" class="{$item.clase}">
+               = {$item.total} {$item.pts}
+            </td>
+         </tr>
+         {/foreach}
+         <tr>
+            <td class="{$v.clase} topborder">
+               {if $v.unidad}
+                  {$v.pts_unidad} {$v.pts}
+               {/if}
+            </td>
+            <td width="10%" class="topborder">
+               {$v.x}
+            </td>
+            <td width="50%" class=" topborder">
+               {if $v.totatimerl_title}
+                  {$v.total_title}
+               {else}
+                  {$v.cantidad} ({$item.name})
+               {/if}
+            </td>
+            <td width="20%" class="{$v.clase} topborder">
+               = {$v.total} {$v.pts}
+            </td>
+         </tr>
+      </tbody>
+   </table>
+   {/foreach}
+   <br>
+   <table cellspacing="0" class="puntos_tabla" cellborder="0">
+      <tbody>
+         <tr style="
+            /* border-bottom: 2px solid white; */
+            ">
+            <td style="
+               " colspan="3">
+               Puntuación Final: 
+            </td>
+            <td width="20%" style="
+               color: #02FF02;
+               ">= {$total} PTS</td>
+         </tr>
+         {if $anterior}
+         <tr style="
+            /* border-bottom: 2px solid white; */
+            ">
+            <td style="
+               " colspan="3">
+               Record Anterior: 
+            </td>
+            <td width="20%" style="
+               ">= {$anterior} PTS</td>
+         </tr>
+         {/if}
+      </tbody>
+   </table>
+   <br />
+   <p class="tiempoHecho ptsfin"></p>
+            <p class="tiempoHecho rachafin"></p>
+            <br/>
+
+            <span class="volverJugar bloque">
+               Volver a jugar
+            </span>
+
+</div>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>BURBUJAS</title>
+
+		
+
+		<link media="screen" rel="stylesheet" type="text/css" href="css/styles.css?v=4" />
+		<link rel="shortcut icon" href="img/favicon.ico" />
+
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0 maximum-scale=1.0">
+		<script type="text/javascript" src="jquery.js"></script>
+		<script src="javascripts/soundjs-0.6.0.min.js" ></script>
+		<script src="javascripts/recursos.js?v=2" type="text/javascript"></script>
+		<script src="javascripts/sonidos.js?v=2" type="text/javascript"></script>
+		<script type="text/javascript" src="javascripts/scripts.js"></script>
+		
+		<link type="text/css" rel="stylesheet" href="stylesheets/colorbox.css?v=2">
+	</head>
+	
+	<body>
+		<div class="back_color_special"></div>
+		<div class="back_image_special"></div>
+		<div class="main">
+			<div class="header referencia">
+				<div class="header_logo2"><img src="images/logo.png" alt="BURBUJAS"/></div>
+				<div class="header_botones">
+					
+				</div>
+				
+
+				
+
+			</div>
+			<div id="juego" class="referencia">
+				<div class="tablero referencia">
+					<div class="back_color_special otroespecial"></div>
+					<div class="back_image_special otroespecial"></div>
+					<div class="header_timerYusuario">
+						<div class="timer"><p id="timer_c">30 segundos</p>
+							<p class="timer_c">0 pts</p>
+							<p id="racha">Racha: 0</p>
+						</div>
+
+						<div class="header_usuarioConectado">
+							<!--<img class="header_fotoUsuario" src="img/usuario.jpg" alt="Usuario Facebook"/>
+							<span class="header_nombreusuario">Karen Cervantes Cervantes</span><br />
+							<span class="header_tiempoVencer">0 PTS</span>-->
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="clear"></div>
+
+			<div class="footer none">
+				<a href="">Aviso de Privacidad</a>
+				<a href="">Términos y condiciones</a>
+			</div>
+
+		</div>
+		<div class="lightbox none">
+			<ul class="backg tablaGanadores tabla_dinamica">
+				<li class="headerGanadores"><img src="img/text1.png" alt=""></li>
+				
+				
+			</ul>
+		</div>
+		<script type="text/javascript" src="javascripts/gsap/plugins/CSSPlugin.min.js"></script>
+		<script type="text/javascript" src="javascripts/gsap/easing/EasePack.min.js"></script>
+		<script type="text/javascript" src="javascripts/gsap/TweenLite.min.js"></script>
+		<script type="text/javascript" src="javascripts/gsap/TimelineLite.min.js"></script>
+		<script type="text/javascript" src="javascripts/burbujas.js?v=8"></script>
+
+		<div class="counter">
+			<h1>3</h1>
+		</div>
+		<li class="plantilla_tabla_ganadores none">
+			<span class="fotoUsuario"><img src="__src" alt="Foto usuario"/></span>
+			<p class="nombreUsuario">__nombre</p><br />
+			<p class="tiempoUsuario">__pts PTS</p>
+			<p class="tiempoUsuario racha">Racha: __racha</p>
+			<div class="clearFloat"></div>
+		</li>
+	</body>
+</html>

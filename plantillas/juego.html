@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Explosión de burbujas</title>
+		<link media="screen" rel="stylesheet" type="text/css" href="css/styles.css?v=1" />
+		<link rel="shortcut icon" href="img/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0 maximum-scale=1.0">
+		<script type="text/javascript" src="jquery.js"></script>
+		<script src="https://code.createjs.com/soundjs-0.6.0.min.js" ></script>
+		<script src="javascripts/recursos.js" type="text/javascript"></script>
+		<script src="javascripts/sonidos.js" type="text/javascript"></script>
+		<script type="text/javascript" src="javascripts/scripts.js"></script>
+		
+		<link type="text/css" rel="stylesheet" href="stylesheets/colorbox.css?v=1"></link>
+	</head>
+	
+	<body>
+		<div class="main">
+			<div class="header referencia">
+				<div class="header_logo2"><img src="img/text1.png" alt="Regreso a clases Arabela"/></div>
+				<div class="header_botones">
+					<a class="b_ins"><img src="img/botonInstrucciones.png" alt="Botón Instrucciones"/></a>
+					<a class="b_tabla none"><img src="img/botonTabla.png" alt="Botón tabla general"/></a>
+					<a class="b_premios none  "><img src="img/botonPremios.png" alt="Botón Premios"/></a>
+				</div>
+				
+
+				
+
+			</div>
+			<div id="juego" class="referencia">
+				<div class="tablero referencia">
+					<div class="header_timerYusuario">
+						<div class="timer"><p id="timer_c">30 segundos</p>
+							<p class="timer_c">0 pts</p>
+							<p id="racha">Racha: 0</p>
+						</div>
+
+						<div class="header_usuarioConectado">
+							<!--<img class="header_fotoUsuario" src="img/usuario.jpg" alt="Usuario Facebook"/>
+							<span class="header_nombreusuario">Karen Cervantes Cervantes</span></br>
+							<span class="header_tiempoVencer">0 PTS</span>-->
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="clear"></div>
+
+			<div class="footer">
+				<a href="">Aviso de Privacidad</a>
+				<a href="">Términos y condiciones</a>
+			</div>
+
+		</div>
+		<div class="lightbox none">
+			<div class="backg instrucciones"><img src="img/instrucciones.png" alt="Premios"/></div>
+		</div>
+		<div class="backg lightbox none">
+			<div class="backg gracias">
+				<img src="img/gracias.png" alt="Gracias por participar"/>
+				<p class="tiempoHecho ptsfin"></p>
+				<p class="tiempoHecho rachafin"></p>
+				<span class="compartir"><img src="img/compartir.png" alt="Compartir en Facebook" /></span></br>
+				<span class="volverJugar"><img src="img/volverJugar.png" alt="Volver a jugar"/></span>
+			</div>
+		</div>
+		<div class="lightbox none">
+			<ul class="backg tablaGanadores">
+				<li class="headerGanadores"><img src="img/text1.png" alt=""></li>
+				<li class="plantilla_tabla_ganadores">
+					<span class="fotoUsuario"><img src="img/usuario.jpg" alt="Foto usuario"/></span>
+					<p class="nombreUsuario">__nombre</p></br>
+					<p class="tiempoUsuario">__pts</p>
+					<p class="tiempoUsuario racha">__racha</p>
+					<div class="clearFloat"></div>
+				</li>
+				
+			</ul>
+		</div>
+		<script type="text/javascript" src="javascripts/gsap/plugins/CSSPlugin.min.js"></script>
+		<script type="text/javascript" src="javascripts/gsap/easing/EasePack.min.js"></script>
+		<script type="text/javascript" src="javascripts/gsap/TweenLite.min.js"></script>
+		<script type="text/javascript" src="javascripts/gsap/TimelineLite.min.js"></script>
+		<script type="text/javascript" src="javascripts/burbujas.js?v=1"></script>
+
+		<div class="counter">
+			<h1>3</h1>
+		</div>
+	</body>
+</html>

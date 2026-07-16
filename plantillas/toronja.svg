@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg id="{$id}"
+   class="toronja fruta my_center" version="1.1" id="trazo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="65.195px" height="76.535px" viewBox="0 0 65.195 76.535" enable-background="new 0 0 65.195 76.535" xml:space="preserve">
+<g>
+	<ellipse fill="#FFE600" cx="32.598" cy="42.357" rx="31.545" ry="30.845"/>
+	<path fill="#DDBD00" d="M31.34,67.987C-2.467,64.782,2.469,33.276,2.469,33.276c-0.92,2.896-1.416,5.975-1.416,9.165
+		c0,17.035,14.123,30.846,31.545,30.846c15.785,0,28.861-11.338,31.18-26.139C63.778,47.149,56.727,70.396,31.34,67.987z"/>
+	<ellipse fill="#DDBD00" cx="36.242" cy="21.424" rx="7.289" ry="3.331"/>
+	<ellipse fill="#DDBD00" cx="10.127" cy="48.719" rx="0.869" ry="1.034"/>
+	<ellipse fill="#DDBD00" cx="13.403" cy="52.915" rx="0.869" ry="1.033"/>
+	<ellipse fill="#DDBD00" cx="16.791" cy="56.593" rx="0.869" ry="1.033"/>
+	<ellipse fill="#DDBD00" cx="19.977" cy="59.718" rx="0.869" ry="1.033"/>
+	<ellipse fill="#DDBD00" cx="15.92" cy="60.751" rx="0.869" ry="1.033"/>
+	<ellipse fill="#DDBD00" cx="12.533" cy="58.126" rx="0.869" ry="1.033"/>
+	<ellipse fill="#DDBD00" cx="10.127" cy="54.315" rx="0.869" ry="1.033"/>
+	<ellipse fill="#DDBD00" cx="24.438" cy="59.718" rx="0.869" ry="1.033"/>
+	<ellipse fill="#DDBD00" cx="27.313" cy="62.218" rx="0.869" ry="1.033"/>
+	<ellipse fill="#DDBD00" cx="20.846" cy="55.858" rx="0.869" ry="1.033"/>
+	<ellipse fill="#90C632" cx="36.242" cy="21.424" rx="4.338" ry="1.982"/>
+	<g>
+		<path fill="#90C632" d="M53.768,4.171c0,0,0.98,7.407-3.324,12.718c-4.303,5.312-13.639,4.489-13.639,4.489l-0.355,0.046
+			c0,0-1.48-9.253,3.512-13.922c4.994-4.669,12.451-4.215,12.451-4.215C52.51,3.285,53.789,2.974,53.768,4.171z"/>
+		<path fill="#A5E24D" d="M53.549,3.497c0.137,0.139,0.225,0.352,0.219,0.675c0,0,0.98,7.407-3.324,12.718
+			c-4.303,5.311-13.639,4.488-13.639,4.488l-0.355,0.046C36.614,21.403,53.549,3.497,53.549,3.497z"/>
+	</g>
+	
+		<ellipse transform="matrix(-0.3542 -0.9352 0.9352 -0.3542 37.0636 100.8689)" fill="#FFF099" cx="53.362" cy="37.636" rx="10.053" ry="5.971"/>
+</g>
+</svg>
