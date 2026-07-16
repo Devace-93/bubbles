@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Vendor files copied from node_modules at build time
+legacy/vendor/
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+*.log
+
+# Local tooling
+.lavish/
+.playwright-mcp/

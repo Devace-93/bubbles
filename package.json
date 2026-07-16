@@ -1,0 +1,16 @@
+{
+  "name": "bubbles",
+  "private": true,
+  "description": "Bubbles — a fruit-popping arcade game. Legacy (2015, jQuery) and remastered (Phaser 3) versions.",
+  "workspaces": [
+    "legacy",
+    "remaster"
+  ],
+  "scripts": {
+    "dev": "bun run --cwd remaster dev",
+    "dev:legacy": "bun run --cwd legacy dev",
+    "build": "bun run build:remaster && bun run build:legacy",
+    "build:remaster": "bun run --cwd remaster build",
+    "build:legacy": "bun run --cwd legacy build"
+  }
+}

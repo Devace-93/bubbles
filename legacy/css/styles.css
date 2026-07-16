@@ -696,3 +696,8 @@ body, body * {
     left: 50%;
     top: 15%;
 }
+/* img/back.jpg was already missing when the project was first committed, so the
+   page fell back to flat #C8FFBE. Gradient in the same palette as replacement. */
+body,.back_image_special,.backg{
+	background: linear-gradient(180deg, #eaffe6 0%, #c8ffbe 45%, #9fe6a0 100%) fixed;
+}
