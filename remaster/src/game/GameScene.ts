@@ -54,55 +54,8 @@ export class GameScene extends Phaser.Scene {
     this.createBackground();
     this.createHud();
     this.items = this.add.group();
-    if (new URLSearchParams(window.location.search).has("debug")) {
-      this.setupCalibration();
-      return;
-    }
     this.buildSpawnQueue();
     this.countdown(3);
-  }
-
-  // ── Calibration mode (/play/?debug): timer stopped, one static bubble per
-  //    sprite, every click logged to the console and marked with a cross ─────
-
-  private setupCalibration(): void {
-    this.timerText.setText("⏸ debug");
-    const all: Array<[string, ItemKind]> = [
-      ...SPRITES.good.map((k): [string, ItemKind] => [k, "good"]),
-      ...SPRITES.bad.map((k): [string, ItemKind] => [k, "bad"]),
-      ...SPRITES.time.map((k): [string, ItemKind] => [k, "time"]),
-    ];
-    all.forEach(([key, kind], i) => {
-      const x = [154, 384, 614][i % 3];
-      const y = 260 + Math.floor(i / 3) * 210;
-      this.createItem(kind, key, x, y);
-    });
-
-    let n = 0;
-    let clickedName: string | null = null;
-    // gameobjectdown fires before the scene-level pointerdown for the same click
-    this.input.on(
-      "gameobjectdown",
-      (_pointer: Phaser.Input.Pointer, obj: Phaser.GameObjects.GameObject) => {
-        clickedName = (obj.getData("sprite") as string) ?? "?";
-      },
-    );
-    this.input.on("pointerdown", (pointer: Phaser.Input.Pointer) => {
-      n++;
-      console.log(clickedName ? `${n}: Clicked ${clickedName}` : `${n}: NO match`);
-      clickedName = null;
-      this.drawCross(pointer.worldX, pointer.worldY);
-    });
-  }
-
-  private drawCross(x: number, y: number): void {
-    const g = this.add.graphics().setDepth(90);
-    g.fillStyle(0x000000, 1);
-    g.fillRect(x - 11, y - 1.5, 22, 3);
-    g.fillRect(x - 1.5, y - 11, 3, 22);
-    g.fillStyle(0xff3333, 1);
-    g.fillRect(x - 10, y - 0.5, 20, 1);
-    g.fillRect(x - 0.5, y - 10, 1, 20);
   }
 
   private resetState(): void {

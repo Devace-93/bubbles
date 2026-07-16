@@ -10,7 +10,7 @@ startBubbleBackground(document.getElementById("bg") as HTMLCanvasElement);
 
 // Make sure the display font is usable inside the canvas before any text renders.
 document.fonts.load('16px "Luckiest Guy"').finally(() => {
-  const game = new Phaser.Game({
+  new Phaser.Game({
     type: Phaser.AUTO,
     parent: "game",
     width: GAME_WIDTH,
@@ -22,6 +22,4 @@ document.fonts.load('16px "Luckiest Guy"').finally(() => {
     },
     scene: [PreloadScene, GameScene, EndScene],
   });
-  // debugging/testing handle
-  (window as unknown as { __game: Phaser.Game }).__game = game;
 });
