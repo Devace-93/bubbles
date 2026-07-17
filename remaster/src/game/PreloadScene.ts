@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import { GAME_HEIGHT, GAME_WIDTH, SOUNDS, SPRITES } from "./config";
 import { t } from "../i18n";
+import { addBackButton } from "./backButton";
 
 export class PreloadScene extends Phaser.Scene {
   constructor() {
@@ -32,7 +33,7 @@ export class PreloadScene extends Phaser.Scene {
   create(): void {
     // A user gesture is required before the browser lets audio play.
     this.add
-      .text(GAME_WIDTH / 2, GAME_HEIGHT * 0.3, "BUBBLES", {
+      .text(GAME_WIDTH / 2, GAME_HEIGHT * 0.3, t().gameName.toUpperCase(), {
         fontFamily: '"Luckiest Guy", system-ui, sans-serif',
         fontSize: "110px",
         color: "#ffffff",
@@ -52,11 +53,19 @@ export class PreloadScene extends Phaser.Scene {
       })
       .setOrigin(0.5);
     this.tweens.add({ targets: tap, alpha: 0.3, duration: 600, yoyo: true, repeat: -1 });
-    this.input.once("pointerdown", () => {
+    addBackButton(this, 56, 54, 62);
+    const start = (
+      _pointer: Phaser.Input.Pointer,
+      currentlyOver: Phaser.GameObjects.GameObject[],
+    ): void => {
+      // ignore taps on the back button
+      if (currentlyOver.length > 0) return;
+      this.input.off("pointerdown", start);
       if (this.sound instanceof Phaser.Sound.WebAudioSoundManager) {
         this.sound.context.resume();
       }
       this.scene.start("game");
-    });
+    };
+    this.input.on("pointerdown", start);
   }
 }

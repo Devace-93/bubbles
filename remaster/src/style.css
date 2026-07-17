@@ -74,6 +74,7 @@ body {
 }
 
 .title {
+  text-transform: uppercase;
   font-family: "Luckiest Guy", system-ui, sans-serif;
   font-size: clamp(3em, 11vw, 5.5em);
   letter-spacing: 4px;

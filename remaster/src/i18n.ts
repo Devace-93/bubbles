@@ -29,6 +29,7 @@ function get(key: string): string {
 }
 
 export interface Strings {
+  gameName: string;
   title: string;
   description: string;
   classicTitle: string;
@@ -65,6 +66,7 @@ export interface Strings {
 
 export function t(): Strings {
   return {
+    gameName: get("gameName"),
     title: get("title"),
     description: get("description"),
     classicTitle: get("classicTitle"),

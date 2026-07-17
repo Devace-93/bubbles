@@ -803,3 +803,28 @@ body,.back_image_special,.backg{
 .lang-sel-classic .lang-panel button.active{
 	background: rgba(53, 208, 186, 0.25);
 }
+
+.lang-sel-classic .lang-search{
+	width: 100%;
+	box-sizing: border-box;
+	margin-bottom: 8px;
+	background: rgba(255, 255, 255, 0.1);
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	border-radius: 8px;
+	color: #fff;
+	padding: 6px 10px;
+	font-size: 13px;
+}
+.lang-sel-classic .lang-list{
+	max-height: 260px;
+	overflow-y: auto;
+}
+.lang-sel-classic .lang-caret{
+	opacity: 0.6;
+	font-size: 11px;
+}
+@media screen and (max-width:640px){
+	.lang-sel-classic .lang-name{
+		display: none;
+	}
+}

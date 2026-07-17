@@ -25,39 +25,73 @@
 			if (link) link.textContent = I.t("source");
 		}
 
-		// corner selector, same placement as the homepage one
+		// corner selector, same structure as the homepage/kinegram picker:
+		// flag + language name + caret, dropdown with a search box
 		var current = null;
 		for (var i = 0; i < I.langs.length; i++) {
 			if (I.langs[i].code === I.lang) current = I.langs[i];
 		}
 		current = current || I.langs[0];
 
+		var norm = function (str) {
+			return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+		};
+
 		var root = document.createElement("div");
 		root.className = "lang-sel-classic";
-		var options = "";
-		for (var j = 0; j < I.langs.length; j++) {
-			var l = I.langs[j];
-			options +=
-				'<button type="button" data-code="' + l.code + '"' +
-				(l.code === I.lang ? ' class="active"' : "") + ">" +
-				l.flag + " " + l.name + "</button>";
-		}
 		root.innerHTML =
-			'<button type="button" class="lang-toggle">🌐 ' +
-			current.flag + " " + current.code.toUpperCase() +
-			'</button><div class="lang-panel" hidden>' + options + "</div>";
+			'<button type="button" class="lang-toggle">' +
+			current.flag + ' <span class="lang-name">' + current.name + '</span> <span class="lang-caret">▾</span>' +
+			'</button><div class="lang-panel" hidden><input type="search" class="lang-search" aria-label="Search" />' +
+			'<div class="lang-list"></div></div>';
 		document.body.appendChild(root);
 
 		var toggle = root.querySelector(".lang-toggle");
 		var panel = root.querySelector(".lang-panel");
+		var search = root.querySelector(".lang-search");
+		var list = root.querySelector(".lang-list");
+
+		function render(query) {
+			var q = norm(query || "");
+			var html = "";
+			for (var j = 0; j < I.langs.length; j++) {
+				var l = I.langs[j];
+				if (q && norm(l.name + " " + l.code + " " + (l.alias || "")).indexOf(q) === -1) continue;
+				html +=
+					'<button type="button" data-code="' + l.code + '"' +
+					(l.code === I.lang ? ' class="active"' : "") + ">" +
+					l.flag + " " + l.name + "</button>";
+			}
+			list.innerHTML = html;
+		}
+		render("");
+
 		toggle.addEventListener("click", function (e) {
 			e.stopPropagation();
 			panel.hidden = !panel.hidden;
+			if (!panel.hidden) {
+				search.value = "";
+				render("");
+				search.focus();
+			}
+		});
+		panel.addEventListener("click", function (e) {
+			e.stopPropagation();
 		});
 		document.addEventListener("click", function () {
 			panel.hidden = true;
 		});
-		panel.addEventListener("click", function (e) {
+		search.addEventListener("input", function () {
+			render(search.value);
+		});
+		search.addEventListener("keydown", function (e) {
+			if (e.key === "Escape") panel.hidden = true;
+			if (e.key === "Enter") {
+				var first = list.querySelector("[data-code]");
+				if (first) first.click();
+			}
+		});
+		list.addEventListener("click", function (e) {
 			var btn = e.target.closest("[data-code]");
 			if (!btn) return;
 			try {
