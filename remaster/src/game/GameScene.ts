@@ -126,22 +126,55 @@ export class GameScene extends Phaser.Scene {
   }
 
   private createHud(): void {
+    this.createBackButton();
     const style = {
       fontFamily: "system-ui, sans-serif",
       fontStyle: "bold",
       color: "#ffffff",
     };
-    const hud = this.add.rectangle(GAME_WIDTH / 2, 54, GAME_WIDTH - 24, 88, 0x03293d, 0.55);
+    const hud = this.add.rectangle(GAME_WIDTH / 2, 136, GAME_WIDTH - 24, 88, 0x03293d, 0.55);
     hud.setStrokeStyle(2, 0xffffff, 0.25).setDepth(50);
-    this.timerText = this.add.text(28, 22, "", { ...style, fontSize: "34px" }).setDepth(51);
+    this.timerText = this.add.text(28, 104, "", { ...style, fontSize: "34px" }).setDepth(51);
     this.scoreText = this.add
-      .text(GAME_WIDTH - 28, 22, "", { ...style, fontSize: "34px", color: "#ffb347" })
+      .text(GAME_WIDTH - 28, 104, "", { ...style, fontSize: "34px", color: "#ffb347" })
       .setOrigin(1, 0)
       .setDepth(51);
     this.streakText = this.add
-      .text(28, 60, "", { ...style, fontSize: "24px", color: "#8ee6d8" })
+      .text(28, 142, "", { ...style, fontSize: "24px", color: "#8ee6d8" })
       .setDepth(51);
     this.updateHud();
+  }
+
+  // back-home button drawn in the canvas, above the scoreboard: a bubble with
+  // a solid triangular arrow, label outside the bubble
+  private createBackButton(): void {
+    const cx = 48;
+    const cy = 46;
+    const bubble = this.add.image(cx, cy, "bubble").setDepth(51);
+    bubble.setScale(66 / bubble.height);
+    const arrow = this.add
+      .triangle(cx + 3, cy, 0, 0, 22, -15, 22, 15, 0xffffff)
+      .setOrigin(0.5)
+      .setDepth(52);
+    arrow.setStrokeStyle(2, 0x03293d, 0.6);
+    const label = this.add
+      .text(cx + 44, cy, t().back, {
+        fontFamily: '"Luckiest Guy", system-ui, sans-serif',
+        fontSize: "28px",
+        color: "#ffffff",
+        stroke: "#03293d",
+        strokeThickness: 5,
+      })
+      .setOrigin(0, 0.5)
+      .setDepth(52);
+    const zone = this.add
+      .zone(10, 10, 44 + 66 + label.width, 72)
+      .setOrigin(0)
+      .setDepth(53)
+      .setInteractive({ useHandCursor: true });
+    zone.on("pointerdown", () => {
+      window.location.href = "/";
+    });
   }
 
   private updateHud(): void {

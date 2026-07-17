@@ -32,6 +32,7 @@ const STRINGS = {
     home: "Home",
     shareFb: "Share on Facebook",
     tapToStart: "Tap to start",
+    back: "Back",
   },
   es: {
     tagline: "Revienta la fruta. Gana al reloj.",
@@ -64,6 +65,7 @@ const STRINGS = {
     home: "Inicio",
     shareFb: "Compartir en Facebook",
     tapToStart: "Toca para empezar",
+    back: "Regresar",
   },
 };
 

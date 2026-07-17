@@ -701,27 +701,39 @@ body,.back_image_special,.backg{
 	background: linear-gradient(180deg, #eaffe6 0%, #c8ffbe 45%, #9fe6a0 100%) fixed;
 }
 
-/* Site navigation added for bubbles.3m4.net: back arrow + footer */
+/* Site navigation added for bubbles.3m4.net: back button + footer,
+   styled to match the classic game (burbuja sprite + purple palette) */
 .back-home{
 	position: fixed;
-	top: 10px;
-	left: 12px;
+	top: 12px;
+	left: 14px;
 	z-index: 50;
 	display: flex;
 	align-items: center;
-	justify-content: center;
-	width: 44px;
-	height: 44px;
-	border-radius: 50%;
-	background: rgba(3, 41, 61, 0.55);
-	border: 1px solid rgba(255, 255, 255, 0.5);
-	color: #fff;
+	gap: 10px;
 	text-decoration: none;
-	font-size: 24px;
-	font-family: sans-serif;
 }
-.back-home:hover{
-	background: rgba(3, 41, 61, 0.85);
+.back-bubble{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 56px;
+	height: 56px;
+	background: url(../png/burbuja2.png) no-repeat center center transparent;
+	background-size: contain;
+	filter: drop-shadow(0 1px 2px rgba(0,0,0,.25));
+}
+.back-bubble svg{
+	margin-right: 3px;
+}
+.back-text{
+	font-family: 'marujoregular', sans-serif;
+	font-size: 22px;
+	color: #6E00BB;
+	text-shadow: 0 1px 0 rgba(255,255,255,.6);
+}
+.back-home:hover .back-text{
+	text-decoration: underline;
 }
 .site-footer{
 	position: fixed;
