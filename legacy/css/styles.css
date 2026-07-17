@@ -753,3 +753,53 @@ body,.back_image_special,.backg{
 .site-footer a{
 	color: #fff;
 }
+
+/* Corner language selector (shared catalog, generated vendor/i18n.js) */
+.lang-sel-classic{
+	position: fixed;
+	top: 12px;
+	right: 14px;
+	z-index: 60;
+	font-family: sans-serif;
+}
+.lang-sel-classic .lang-toggle{
+	background: rgba(3, 41, 61, 0.55);
+	border: 1px solid rgba(255, 255, 255, 0.5);
+	color: #fff;
+	border-radius: 999px;
+	padding: 6px 13px;
+	font-weight: 700;
+	cursor: pointer;
+	font-size: 13px;
+}
+.lang-sel-classic .lang-panel{
+	position: absolute;
+	top: calc(100% + 8px);
+	right: 0;
+	background: #0c2b3f;
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	border-radius: 12px;
+	padding: 6px;
+	max-height: 320px;
+	overflow-y: auto;
+	min-width: 210px;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+.lang-sel-classic .lang-panel button{
+	display: block;
+	width: 100%;
+	background: none;
+	border: none;
+	color: #e8f1f7;
+	cursor: pointer;
+	padding: 7px 10px;
+	border-radius: 8px;
+	font-size: 13px;
+	text-align: left;
+}
+.lang-sel-classic .lang-panel button:hover{
+	background: rgba(255, 255, 255, 0.12);
+}
+.lang-sel-classic .lang-panel button.active{
+	background: rgba(53, 208, 186, 0.25);
+}

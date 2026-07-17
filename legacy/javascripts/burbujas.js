@@ -38,7 +38,13 @@ var plantillas,
 	mayorRacha = 0,
 	tabla;
 
-var frutas_name = {
+var frutas_name = window.BI18N ? {
+	cuadrado: BI18N.t('shapeSquares'),
+	triangulo : BI18N.t('shapeTriangles'),
+	circulo : BI18N.t('shapeCircles'),
+	pentagono : BI18N.t('shapePentagons'),
+	mora : BI18N.t('shapeBerries')
+} : {
 	cuadrado: 'Cuadrados',
 	triangulo : 'Triangulos',
 	circulo : 'Circulos',
@@ -267,7 +273,7 @@ function crearFruta(id,tipo,left,noClick){
 
 		if(fruta.tipo=='50'){
 			racha++;
-			$('#racha').text("Racha: "+racha);
+			$('#racha').text(window.BI18N ? BI18N.fmt('streak',{n:racha}) : "Racha: "+racha);
 		}
 
 		if(fruta.tipo=='menos7'){
@@ -281,7 +287,7 @@ function crearFruta(id,tipo,left,noClick){
 			}
 
 			racha = 0;
-			$('#racha').text("Racha: "+racha);
+			$('#racha').text(window.BI18N ? BI18N.fmt('streak',{n:racha}) : "Racha: "+racha);
 			return;
 		}
 
@@ -352,7 +358,7 @@ function crearFruta(id,tipo,left,noClick){
 				ease: Power0.easeNone, 
 				puntos: mFinal,
 				onUpdate: function(){
-					$('.timer_c').text(Math.round(marcador.puntos)+' pts')
+					$('.timer_c').text(window.BI18N ? BI18N.fmt('points',{n:Math.round(marcador.puntos)}) : Math.round(marcador.puntos)+' pts')
 				}
 			});
 		}else{
@@ -596,7 +602,7 @@ function estallarTodas(){
 		puntuacion += contadoresFrutas.RACHAS.RACHA12*30;
 
 		lineaTiempo.progress(1);
-		$('.timer_c').text(Math.round(puntuacion)+' pts')
+		$('.timer_c').text(window.BI18N ? BI18N.fmt('points',{n:Math.round(puntuacion)}) : Math.round(puntuacion)+' pts')
 		crearTablaResultados();
 
 		$('.header_timerYusuario').addClass('tablafinal')
@@ -609,8 +615,8 @@ function estallarTodas(){
 		}
 
 		setTimeout(function(){
-			$('.ptsfin').text(puntuacion+' PTS')
-			$('.rachafin').text('Mejor racha: '+mayorRacha)
+			$('.ptsfin').text(window.BI18N ? BI18N.fmt('points',{n:puntuacion}) : puntuacion+' PTS')
+			$('.rachafin').text(window.BI18N ? BI18N.fmt('bestStreak',{n:mayorRacha}) : 'Mejor racha: '+mayorRacha)
 			$('.volverJugar').click(function(){
 				location.reload();
 			});
@@ -659,10 +665,10 @@ function crearTablaResultados(){
 		pts : 'PTS',
 		x : '',
 		name : 'Frutas',
+		cantidad : 0,
 		items : [],
 		clase : 'positivo',
-		total : 0,
-		total_title: 'Total' 
+		total : 0
 	};
 
 	for(var fruta in contadoresFrutas['50']){
@@ -699,16 +705,17 @@ function crearTablaResultados(){
 
 	for(var fruta in contadoresFrutas['RACHAS']){
 		var numero = contadoresFrutas['RACHAS'][fruta],
-			tipo = (fruta=='RACHA3'?'Rachas de 3':(fruta=='RACHA9'?'Rachas de 9':'Rachas de 12')),
+			tipo = window.BI18N ? BI18N.fmt('streakBonus',{n:(fruta=='RACHA3'?3:(fruta=='RACHA9'?9:12))}) : (fruta=='RACHA3'?'Rachas de 3':(fruta=='RACHA9'?'Rachas de 9':'Rachas de 12')),
 			unidad = (fruta=='RACHA3'?7:(fruta=='RACHA9'?18:30)),
 			total = numero * unidad;
 			rachas.total += total;
+			rachas.cantidad += numero;
 		rachas.items.push({
 			pts_unidad : unidad,
 			pts : 'PTS',
 			x : 'x',
 			cantidad : numero,
-			name : fruta,
+			name : tipo,
 			clase : 'positivo',
 			total : total,
 		});
@@ -721,7 +728,10 @@ function crearTablaResultados(){
 			malas,
 			rachas
 		],
-		total : buenas.total + malas.total + rachas.total
+		total : buenas.total + malas.total + rachas.total,
+		txt_calc : window.BI18N ? BI18N.t('calculating') : 'Puntuación...',
+		txt_final : window.BI18N ? BI18N.t('finalScore') : 'Puntuación Final',
+		txt_volver : window.BI18N ? BI18N.t('playAgain') : 'Volver a jugar'
 	}
 
 		despliegue.dibujar({
@@ -825,7 +835,7 @@ function animarTiempo(){
 			}
 
 			var seg_undos = Math.round(45-(delta/1000))-15+counter.extra;
-			$('#timer_c').text(seg_undos+' segundos');
+			$('#timer_c').text(window.BI18N ? BI18N.fmt('seconds',{n:seg_undos}) : seg_undos+' segundos');
 
 			if(seg_undos<6)
 				iniciarSirena();

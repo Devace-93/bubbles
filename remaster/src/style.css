@@ -44,18 +44,10 @@ body {
   text-align: center;
 }
 
-#lang-toggle {
+#lang-sel {
   position: absolute;
   top: 14px;
   right: 16px;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  color: #fff;
-  border-radius: 999px;
-  padding: 6px 14px;
-  font-weight: 700;
-  cursor: pointer;
-  font-size: 0.85em;
 }
 
 #banner {

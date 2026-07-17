@@ -1,5 +1,5 @@
 <div class="timer tablafinal">
-   <p class="timer_c" style="display: block;">Puntuación...</p>
+   <p class="timer_c" style="display: block;">{$txt_calc}</p>
    {foreach $marcadores as $i => $v}
    <br>
    <table class="puntos_tabla" cellspacing="0" style="
@@ -38,11 +38,7 @@
                {$v.x}
             </td>
             <td width="50%" class=" topborder">
-               {if $v.totatimerl_title}
-                  {$v.total_title}
-               {else}
-                  {$v.cantidad} ({$item.name})
-               {/if}
+               {$v.cantidad}
             </td>
             <td width="20%" class="{$v.clase} topborder">
                = {$v.total} {$v.pts}
@@ -59,7 +55,7 @@
             ">
             <td style="
                " colspan="3">
-               Puntuación Final: 
+               {$txt_final}: 
             </td>
             <td width="20%" style="
                color: #02FF02;
@@ -85,7 +81,7 @@
             <br/>
 
             <span class="volverJugar bloque">
-               Volver a jugar
+               {$txt_volver}
             </span>
 
 </div>

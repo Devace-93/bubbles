@@ -8,7 +8,7 @@
     "jquery": "github:components/jquery#1.8.3"
   },
   "scripts": {
-    "vendor": "bun scripts/copy-vendor.ts",
+    "vendor": "bun scripts/copy-vendor.ts && bun scripts/gen-i18n.ts",
     "dev": "bun run vendor && bun scripts/serve.ts",
     "build": "bun run vendor && bun scripts/build.ts",
     "plantillas": "bun nodePlantillas.js"
