@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>Bubbles — play</title>
     <meta name="description" content="Pop fruit bubbles before time runs out." />
-    <link rel="icon" href="/art/blackberry.svg" />
+    <link rel="icon" href="/art/favicon.svg" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Bubbles — pop the fruit, beat the clock" />
     <meta property="og:description" content="Pop fruit bubbles before time runs out. Can you beat my score?" />
@@ -24,11 +24,44 @@
       @media (pointer: fine) {
         #game canvas { cursor: url("/art/knife.svg") 3 3, pointer; }
       }
+      #topbar {
+        position: fixed; top: 10px; left: 12px; z-index: 2;
+        display: flex; align-items: center; gap: 10px;
+        font-family: system-ui, sans-serif;
+      }
+      #topbar a {
+        display: flex; align-items: center; justify-content: center;
+        width: 44px; height: 44px; border-radius: 50%;
+        background: rgba(3, 41, 61, 0.55); border: 1px solid rgba(255, 255, 255, 0.35);
+        color: #fff; text-decoration: none; font-size: 24px; font-weight: 700;
+      }
+      #topbar a:hover { background: rgba(3, 41, 61, 0.85); }
+      #topbar img { width: 30px; height: 30px; }
+      #foot {
+        position: fixed; bottom: 0; left: 0; right: 0; z-index: 2;
+        display: flex; gap: 18px; align-items: center; justify-content: center;
+        padding: 6px 10px; font: 13px system-ui, sans-serif; color: #e8f1f7;
+        background: rgba(3, 41, 61, 0.55);
+      }
+      #foot a { color: #fff; }
+      #foot button {
+        background: none; border: 1px solid rgba(255, 255, 255, 0.5); color: #fff;
+        border-radius: 999px; padding: 3px 12px; cursor: pointer; font-size: 12px;
+      }
     </style>
   </head>
   <body>
     <canvas id="bg" aria-hidden="true"></canvas>
     <div id="game"></div>
+    <nav id="topbar">
+      <a href="/" id="back-home" aria-label="Back to home">←</a>
+      <a href="/" aria-label="Home"><img src="/art/favicon.svg" alt="Bubbles" /></a>
+    </nav>
+    <footer id="foot">
+      <span data-i18n="madeBy"></span>
+      <a href="https://github.com/Devace-93/bubbles" data-i18n="source"></a>
+      <button id="share-btn" type="button" data-i18n="share"></button>
+    </footer>
     <script type="module" src="/src/game/main.ts"></script>
   </body>
 </html>
