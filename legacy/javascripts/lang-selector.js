@@ -18,12 +18,9 @@
 
 		var backText = document.querySelector(".back-text");
 		if (backText) backText.textContent = I.t("back");
-		var footer = document.querySelector(".site-footer");
-		if (footer) {
-			footer.childNodes[0].textContent = I.t("madeBy") + " ";
-			var link = footer.querySelector("a");
-			if (link) link.textContent = I.t("source");
-		}
+		var footerLinks = document.querySelectorAll(".site-footer a");
+		if (footerLinks[0]) footerLinks[0].textContent = I.t("madeBy");
+		if (footerLinks[1]) footerLinks[1].textContent = I.t("source");
 
 		// corner selector, same structure as the homepage/kinegram picker:
 		// flag + language name + caret, dropdown with a search box

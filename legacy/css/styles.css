@@ -710,7 +710,7 @@ body,.back_image_special,.backg{
 	z-index: 50;
 	display: flex;
 	align-items: center;
-	gap: 10px;
+	gap: 5px;
 	text-decoration: none;
 }
 .back-bubble{
@@ -729,6 +729,9 @@ body,.back_image_special,.backg{
 .back-text{
 	font-family: 'marujoregular', sans-serif;
 	font-size: 22px;
+	line-height: 1;
+	/* Luckiest Guy glyphs sit high above the baseline; nudge to optical center */
+	transform: translateY(3px);
 	color: #6E00BB;
 	text-shadow: 0 1px 0 rgba(255,255,255,.6);
 }
