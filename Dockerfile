@@ -8,6 +8,8 @@ RUN bun install --frozen-lockfile
 COPY . .
 ARG VITE_SITE_URL=https://bubbles.3m4.net
 ENV VITE_SITE_URL=$VITE_SITE_URL
+ARG VITE_INFO_URL=https://info.3m4.net
+ENV VITE_INFO_URL=$VITE_INFO_URL
 RUN bun run build
 
 FROM nginx:alpine

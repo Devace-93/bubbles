@@ -6,6 +6,7 @@ const here = import.meta.dirname;
 
 // Default so no-env builds produce the canonical production URLs.
 process.env.VITE_SITE_URL ??= "https://bubbles.3m4.net";
+process.env.VITE_INFO_URL ??= "https://info.3m4.net";
 
 // The remaster's visuals are original art (public/art/); only the legacy
 // game's sound effects and font are reused. They are copied (not committed
