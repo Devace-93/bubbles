@@ -4,13 +4,21 @@ export type Lang = string;
 
 const KEY = "bubbles.lang";
 
+// Resolves the active locale, mirroring kinegrama's resolveInitial():
+// saved value (legacy base codes like 'es' migrate to the first matching
+// locale, e.g. 'es' → 'es-MX') → exact navigator.language match → first
+// locale sharing the navigator base language → LANGS[0] ('es-MX').
 export function getLang(): Lang {
   const saved = localStorage.getItem(KEY);
-  if (saved && CATALOG[saved]) return saved;
-  const nav = (navigator.language || "en").toLowerCase();
+  if (saved) {
+    if (LANGS.some((l) => l.code === saved)) return saved;
+    const migrated = LANGS.find((l) => l.code.startsWith(saved))?.code;
+    if (migrated) return migrated;
+  }
+  const nav = navigator.language || "es-MX";
+  if (LANGS.some((l) => l.code === nav)) return nav;
   const base = nav.slice(0, 2);
-  if (CATALOG[base]) return base;
-  return "en";
+  return (LANGS.find((l) => l.code.startsWith(base)) ?? LANGS[0]).code;
 }
 
 export function setLang(lang: Lang): void {
@@ -18,14 +26,18 @@ export function setLang(lang: Lang): void {
 }
 
 export function isRtl(lang: Lang = getLang()): boolean {
-  return RTL_LANGS.includes(lang);
+  return RTL_LANGS.includes(lang.slice(0, 2));
 }
 
 export { LANGS };
 
+// Per-key resolution: country variant ('pt-PT') → base language ('pt') →
+// es for es-* locales, en for everything else → the key itself.
 function get(key: string): string {
-  const c = CATALOG[getLang()] ?? CATALOG.en;
-  return c[key] ?? CATALOG.en[key] ?? key;
+  const lang = getLang();
+  const base = lang.slice(0, 2);
+  const last = base === "es" ? CATALOG.es : CATALOG.en;
+  return CATALOG[lang]?.[key] ?? CATALOG[base]?.[key] ?? last[key] ?? key;
 }
 
 export interface Strings {

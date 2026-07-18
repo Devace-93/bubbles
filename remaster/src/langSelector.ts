@@ -48,7 +48,7 @@ export function mountLangSelector(container: HTMLElement, onChange: () => void):
   }
 
   container.classList.add("lang-sel");
-  const current = LANGS.find((l) => l.code === getLang()) ?? LANGS[1];
+  const current = LANGS.find((l) => l.code === getLang()) ?? LANGS[0];
   container.innerHTML = `
     <button type="button" aria-haspopup="listbox" aria-label="Language">
       <span>${current.flag}</span><span class="lname">${current.name}</span><span class="caret">▾</span>

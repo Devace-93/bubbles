@@ -1,6 +1,9 @@
-// Site-wide translation catalog. Same base-language set as kinegram.3m4.net.
+// Site-wide translation catalog. Same per-country locale set as
+// kinegram.3m4.net: one entry per country, each with that country's official
+// language. Base catalogs (keyed 'es', 'en', …) hold every key; country
+// variants (keyed 'es-AR', 'pt-PT', …) override only real differences and
+// fall back per-key to their base language, then to es/en.
 // Values are plain templates; {n}, {score}, {streak} are interpolated by fmt().
-// English is the reference catalog; every language must define every key.
 
 export interface LangInfo {
   code: string;
@@ -9,32 +12,46 @@ export interface LangInfo {
   alias: string;
 }
 
+// One entry per country, with that country's official language.
+// Mirrors kinegrama's LOCALES exactly (codes, flags, names, aliases, order).
 export const LANGS: LangInfo[] = [
-  { code: "es", alias: "spanish espanol", flag: "🇲🇽", name: "Español" },
-  { code: "en", alias: "english ingles", flag: "🇺🇸", name: "English" },
-  { code: "fr", alias: "french frances francais", flag: "🇫🇷", name: "Français" },
-  { code: "de", alias: "german aleman deutsch", flag: "🇩🇪", name: "Deutsch" },
-  { code: "it", alias: "italian italiano", flag: "🇮🇹", name: "Italiano" },
-  { code: "pt", alias: "portuguese portugues", flag: "🇧🇷", name: "Português" },
-  { code: "nl", alias: "dutch neerlandes holandes nederlands", flag: "🇳🇱", name: "Nederlands" },
-  { code: "sv", alias: "swedish sueco svenska", flag: "🇸🇪", name: "Svenska" },
-  { code: "pl", alias: "polish polaco polski", flag: "🇵🇱", name: "Polski" },
-  { code: "cs", alias: "czech checo cestina", flag: "🇨🇿", name: "Čeština" },
-  { code: "ro", alias: "romanian rumano romana", flag: "🇷🇴", name: "Română" },
-  { code: "el", alias: "greek griego ellinika", flag: "🇬🇷", name: "Ελληνικά" },
-  { code: "uk", alias: "ukrainian ucraniano ukrainska", flag: "🇺🇦", name: "Українська" },
-  { code: "ru", alias: "russian ruso russkiy", flag: "🇷🇺", name: "Русский" },
-  { code: "tr", alias: "turkish turco turkce", flag: "🇹🇷", name: "Türkçe" },
-  { code: "ar", alias: "arabic arabe arabiya", flag: "🇸🇦", name: "العربية" },
-  { code: "hi", alias: "hindi", flag: "🇮🇳", name: "हिन्दी" },
-  { code: "zh", alias: "chinese chino mandarin zhongwen", flag: "🇨🇳", name: "中文" },
-  { code: "ja", alias: "japanese japones nihongo", flag: "🇯🇵", name: "日本語" },
-  { code: "ko", alias: "korean coreano hangugeo", flag: "🇰🇷", name: "한국어" },
-  { code: "vi", alias: "vietnamese vietnamita tieng viet", flag: "🇻🇳", name: "Tiếng Việt" },
-  { code: "id", alias: "indonesian indonesio bahasa", flag: "🇮🇩", name: "Bahasa Indonesia" },
-  { code: "th", alias: "thai tailandes phasa thai", flag: "🇹🇭", name: "ไทย" },
+  { code: "es-MX", flag: "🇲🇽", name: "Español (México)", alias: "spanish espanol mexico" },
+  { code: "es-ES", flag: "🇪🇸", name: "Español (España)", alias: "spanish espanol espana spain" },
+  { code: "es-CO", flag: "🇨🇴", name: "Español (Colombia)", alias: "spanish espanol colombia" },
+  { code: "es-AR", flag: "🇦🇷", name: "Español (Argentina)", alias: "spanish espanol argentina" },
+  { code: "es-CL", flag: "🇨🇱", name: "Español (Chile)", alias: "spanish espanol chile" },
+  { code: "es-PE", flag: "🇵🇪", name: "Español (Perú)", alias: "spanish espanol peru" },
+  { code: "en-US", flag: "🇺🇸", name: "English (US)", alias: "english ingles estados unidos usa united states" },
+  { code: "en-GB", flag: "🇬🇧", name: "English (UK)", alias: "english ingles reino unido uk united kingdom" },
+  { code: "en-CA", flag: "🇨🇦", name: "English (Canada)", alias: "english ingles canada" },
+  { code: "en-AU", flag: "🇦🇺", name: "English (Australia)", alias: "english ingles australia" },
+  { code: "en-NZ", flag: "🇳🇿", name: "English (New Zealand)", alias: "english ingles nueva zelanda new zealand" },
+  { code: "fr-FR", flag: "🇫🇷", name: "Français (France)", alias: "french frances francia france" },
+  { code: "de-DE", flag: "🇩🇪", name: "Deutsch (Deutschland)", alias: "german aleman alemania germany" },
+  { code: "de-AT", flag: "🇦🇹", name: "Deutsch (Österreich)", alias: "german aleman austria" },
+  { code: "it-IT", flag: "🇮🇹", name: "Italiano (Italia)", alias: "italian italiano italia italy" },
+  { code: "pt-BR", flag: "🇧🇷", name: "Português (Brasil)", alias: "portuguese portugues brasil brazil" },
+  { code: "pt-PT", flag: "🇵🇹", name: "Português (Portugal)", alias: "portuguese portugues portugal" },
+  { code: "nl-NL", flag: "🇳🇱", name: "Nederlands (Nederland)", alias: "dutch neerlandes holandes paises bajos netherlands" },
+  { code: "sv-SE", flag: "🇸🇪", name: "Svenska (Sverige)", alias: "swedish sueco suecia sweden" },
+  { code: "pl-PL", flag: "🇵🇱", name: "Polski (Polska)", alias: "polish polaco polonia poland" },
+  { code: "cs-CZ", flag: "🇨🇿", name: "Čeština (Česko)", alias: "czech checo chequia czechia" },
+  { code: "ro-RO", flag: "🇷🇴", name: "Română (România)", alias: "romanian rumano rumania romania" },
+  { code: "el-GR", flag: "🇬🇷", name: "Ελληνικά (Ελλάδα)", alias: "greek griego grecia greece" },
+  { code: "uk-UA", flag: "🇺🇦", name: "Українська (Україна)", alias: "ukrainian ucraniano ucrania ukraine" },
+  { code: "ru-RU", flag: "🇷🇺", name: "Русский (Россия)", alias: "russian ruso rusia russia" },
+  { code: "tr-TR", flag: "🇹🇷", name: "Türkçe (Türkiye)", alias: "turkish turco turquia turkey" },
+  { code: "ar-SA", flag: "🇸🇦", name: "العربية (السعودية)", alias: "arabic arabe arabia saudita saudi arabia" },
+  { code: "hi-IN", flag: "🇮🇳", name: "हिन्दी (भारत)", alias: "hindi india" },
+  { code: "zh-CN", flag: "🇨🇳", name: "中文（中国）", alias: "chinese chino china mandarin" },
+  { code: "ja-JP", flag: "🇯🇵", name: "日本語（日本）", alias: "japanese japones japon japan" },
+  { code: "ko-KR", flag: "🇰🇷", name: "한국어 (대한민국)", alias: "korean coreano corea korea" },
+  { code: "vi-VN", flag: "🇻🇳", name: "Tiếng Việt (Việt Nam)", alias: "vietnamese vietnamita vietnam" },
+  { code: "id-ID", flag: "🇮🇩", name: "Bahasa Indonesia (Indonesia)", alias: "indonesian indonesio indonesia" },
+  { code: "th-TH", flag: "🇹🇭", name: "ไทย (ประเทศไทย)", alias: "thai tailandes tailandia thailand" },
 ];
 
+// Base language codes rendered right-to-left; compare with lang.slice(0, 2).
 export const RTL_LANGS = ["ar"];
 
 export type Catalog = Record<string, string>;
@@ -982,6 +999,47 @@ export const CATALOG: Record<string, Catalog> = {
     shapeCircles: "วงกลม",
     shapePentagons: "ห้าเหลี่ยม",
     shapeBerries: "เบอร์รี",
+  },
+
+  // Country-variant partial overrides: only keys that genuinely differ from
+  // the base-language catalog. Everything else falls back per-key to the base.
+
+  // Spain: "Volver" instead of the Latin-American "Regresar".
+  "es-ES": {
+    back: "Volver",
+  },
+
+  // Argentina: voseo imperatives and conjugations (base 'es' uses tuteo).
+  "es-AR": {
+    title: "Burbujas — reventá la fruta, ganale al reloj",
+    tagline: "Reventá la fruta. Ganale al reloj.",
+    howPop: "REVENTÁ frutas",
+    howAvoid: "EVITÁ verduras",
+    howAvoidSub: "−7 pts y perdés la racha",
+    howTime: "ATRAPÁ moras",
+    howStreak: "ENCADENÁ rachas",
+    challengeBanner: "Alguien hizo {score} pts con una racha de {streak} — ¿podés superarlo?",
+    tapToStart: "Tocá para empezar",
+    back: "Volver",
+  },
+
+  // European Portuguese: "rebentar" instead of Brazilian "estourar",
+  // "partilhar" vs "compartilhar", "bónus" vs "bônus", tu-form imperatives,
+  // and the "a + infinitive" progressive.
+  "pt-PT": {
+    title: "Bolhas — rebenta as frutas, vence o relógio",
+    description: "Rebenta bolhas de fruta antes que o tempo acabe. Mini-jogo arcade grátis — remasterizado, com o clássico original de 2015 incluído.",
+    tagline: "Rebenta as frutas. Vence o relógio.",
+    howPop: "REBENTA frutas",
+    howAvoid: "EVITA legumes",
+    howTime: "APANHA amoras",
+    howStreak: "ENCADEIA sequências",
+    howStreakSub: "bónus ×3 ×9 ×12",
+    challengeBanner: "Alguém fez {score} pts com uma sequência de {streak} — consegues superar?",
+    share: "Partilhar",
+    shareFb: "Partilhar no Facebook",
+    tapToStart: "Toca para começar",
+    calculating: "A calcular…",
   },
 };
 
