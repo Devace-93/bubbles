@@ -1,5 +1,8 @@
 services:
   bubbles:
-    build: .
+    build:
+      context: .
+      args:
+        VITE_SITE_URL: ${BUBBLES_SITE_URL:-http://localhost:8082}
     ports:
-      - "8080:80"
+      - "${BUBBLES_PROD_PORT:-8082}:80"

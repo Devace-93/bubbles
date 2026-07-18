@@ -1,4 +1,4 @@
-const SITE = "https://bubbles.3m4.net";
+const SITE = import.meta.env.VITE_SITE_URL;
 
 // Facebook's share dialog only honors the page's Open Graph tags, so the
 // score travels in the shared URL and the homepage shows it as a banner.

@@ -12,6 +12,10 @@ legacy/vendor/
 Thumbs.db
 *.log
 
+# Local env overrides (secrets live here, never committed)
+.env
+.env.*.local
+
 # Local tooling
 .lavish/
 .playwright-mcp/
