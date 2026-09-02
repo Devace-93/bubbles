@@ -1,4 +1,4 @@
-import { cpSync, mkdirSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, readdirSync } from "node:fs";
 import { resolve } from "node:path";
 import { defineConfig, type Plugin } from "vite";
 
@@ -23,7 +23,21 @@ function legacyAssets(): Plugin {
   };
 }
 
+// Locales whose four announcer clips all exist in public/voices/, exposed to
+// the client as __VOICED_LOCALES__ so it never requests a missing clip.
+function voicedLocales(): string[] {
+  const dir = resolve(here, "public/voices");
+  if (!existsSync(dir)) return [];
+  const counts = new Map<string, number>();
+  for (const f of readdirSync(dir)) {
+    const m = /^[a-z-]+\.([A-Za-z-]+)\.mp3$/.exec(f);
+    if (m) counts.set(m[1], (counts.get(m[1]) ?? 0) + 1);
+  }
+  return [...counts].filter(([, n]) => n === 4).map(([locale]) => locale).sort();
+}
+
 export default defineConfig({
+  define: { __VOICED_LOCALES__: JSON.stringify(voicedLocales()) },
   base: "/",
   plugins: [legacyAssets()],
   build: {

@@ -40,11 +40,15 @@
   <body>
     <canvas id="bg" aria-hidden="true"></canvas>
     <div id="game"></div>
-    <div id="lang-sel" style="position: fixed; top: 12px; right: 14px; z-index: 2"></div>
+    <div id="topbar" style="position: fixed; top: 12px; right: 14px; z-index: 2; display: flex; align-items: center; gap: 8px">
+      <div id="sound-ctl"></div>
+      <div id="lang-sel"></div>
+    </div>
     <footer id="foot">
       <a data-i18n="madeBy" href="https://www.linkedin.com/in/enrique-magallon/" target="_blank" rel="noopener"></a>
       <a href="https://github.com/Devace-93/bubbles" data-i18n="source"></a>
       <a href="%VITE_INFO_URL%">info.3m4.net</a>
+      <a href="https://elevenlabs.io" target="_blank" rel="noopener">Voice by elevenlabs.io</a>
       <button id="share-btn" type="button" data-i18n="share"></button>
     </footer>
     <script type="module" src="/src/game/main.ts"></script>

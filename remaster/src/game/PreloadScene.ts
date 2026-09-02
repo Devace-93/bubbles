@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import { GAME_HEIGHT, GAME_WIDTH, SOUNDS, SPRITES } from "./config";
 import { t } from "../i18n";
 import { addBackButton } from "./backButton";
+import { preloadVoices } from "./announcer";
 
 export class PreloadScene extends Phaser.Scene {
   constructor() {
@@ -28,6 +29,7 @@ export class PreloadScene extends Phaser.Scene {
     for (const [key, file] of Object.entries(SOUNDS)) {
       this.load.audio(key, `/assets/sounds/${file}`);
     }
+    preloadVoices(this);
   }
 
   create(): void {

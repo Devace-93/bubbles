@@ -21,6 +21,7 @@ import {
 } from "./config";
 import { t } from "../i18n";
 import { addBackButton } from "./backButton";
+import { announce } from "./announcer";
 
 interface SpawnEntry {
   at: number; // seconds from round start
@@ -175,6 +176,7 @@ export class GameScene extends Phaser.Scene {
   private countdown(n: number): void {
     if (n === 0) {
       this.running = true;
+      announce(this, "gameStart");
       return;
     }
     this.sound.play("BEEP");
@@ -344,12 +346,16 @@ export class GameScene extends Phaser.Scene {
     this.streak++;
     if (this.streak > this.bestStreak) this.bestStreak = this.streak;
     // same precedence as legacy: ×12 beats ×9 beats ×3
+    // "level up" is announced on the big streak milestones (the game has no
+    // levels); ×3 is too frequent to voice.
     if (this.streak % 12 === 0) {
       this.sound.play("RACHA12");
       this.streakCounts[12]++;
+      announce(this, "levelUp");
     } else if (this.streak % 9 === 0) {
       this.sound.play("RACHA9");
       this.streakCounts[9]++;
+      announce(this, "levelUp");
     } else if (this.streak % 3 === 0) {
       this.sound.play("RACHA3");
       this.streakCounts[3]++;
@@ -386,6 +392,7 @@ export class GameScene extends Phaser.Scene {
     this.running = false;
     this.sound.stopByKey("SIRENA");
     this.sound.play("FINAL");
+    announce(this, "gameOver");
 
     for (const item of [...this.items.getChildren()] as Phaser.GameObjects.Container[]) {
       if (item.active) this.popItem(item, true);

@@ -11,6 +11,7 @@
     "dev:legacy": "bun run --cwd legacy dev",
     "build": "bun run build:remaster && bun run build:legacy",
     "build:remaster": "bun run --cwd remaster build",
-    "build:legacy": "bun run --cwd legacy build"
+    "build:legacy": "bun run --cwd legacy build",
+    "voices": "bun scripts/generate-voices.ts"
   }
 }

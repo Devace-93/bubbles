@@ -10,3 +10,6 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+// Locales with a complete announcer clip set in public/voices/ (vite.config.ts).
+declare const __VOICED_LOCALES__: readonly string[];

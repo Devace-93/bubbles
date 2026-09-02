@@ -4,6 +4,7 @@ import { startBubbleBackground } from "../bg";
 import { t } from "../i18n";
 import { mountLangSelector } from "../langSelector";
 import { openShare } from "../share";
+import { getSoundSettings, mountSoundControl, type SoundSettings } from "../sound";
 import { GAME_HEIGHT, GAME_WIDTH } from "./config";
 import { PreloadScene } from "./PreloadScene";
 import { GameScene } from "./GameScene";
@@ -21,9 +22,19 @@ document.getElementById("share-btn")!.addEventListener("click", () => openShare(
 // language change re-renders canvas texts too, so a reload keeps it simple
 mountLangSelector(document.getElementById("lang-sel")!, () => location.reload());
 
+// Mute/volume live on Phaser's global SoundManager, so every sound effect and
+// announcer line inherits them without per-call checks.
+let game: Phaser.Game | undefined;
+function applySound(settings: SoundSettings): void {
+  if (!game) return;
+  game.sound.mute = settings.muted;
+  game.sound.volume = settings.volume;
+}
+mountSoundControl(document.getElementById("sound-ctl")!, applySound);
+
 // Make sure the display font is usable inside the canvas before any text renders.
 document.fonts.load('16px "Luckiest Guy"').finally(() => {
-  new Phaser.Game({
+  game = new Phaser.Game({
     type: Phaser.AUTO,
     parent: "game",
     width: GAME_WIDTH,
@@ -35,4 +46,5 @@ document.fonts.load('16px "Luckiest Guy"').finally(() => {
     },
     scene: [PreloadScene, GameScene, EndScene],
   });
+  applySound(getSoundSettings());
 });

@@ -9,6 +9,8 @@ import {
 } from "./config";
 import { t } from "../i18n";
 import { openShare } from "../share";
+import { recordScore } from "../highScore";
+import { announce } from "./announcer";
 
 export class EndScene extends Phaser.Scene {
   private result!: RoundResult;
@@ -25,6 +27,8 @@ export class EndScene extends Phaser.Scene {
     const s = t();
     const r = this.result;
     this.sound.play("WOW");
+    const isHighScore = recordScore(r.score);
+    if (isHighScore) announce(this, "newHighScore");
 
     this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x03293d, 0.88);
 
@@ -42,6 +46,13 @@ export class EndScene extends Phaser.Scene {
     this.add
       .text(GAME_WIDTH / 2, y, s.bestStreak(r.bestStreak), { ...title, fontSize: "34px", color: "#8ee6d8" })
       .setOrigin(0.5);
+    if (isHighScore) {
+      y += 48;
+      const badge = this.add
+        .text(GAME_WIDTH / 2, y, `🏆 ${s.newHighScore}`, { ...title, fontSize: "30px", color: "#ffe066" })
+        .setOrigin(0.5);
+      this.tweens.add({ targets: badge, scale: 1.08, duration: 500, yoyo: true, repeat: -1, ease: "Sine.easeInOut" });
+    }
     y += 70;
 
     const rows: Array<[string, string]> = [

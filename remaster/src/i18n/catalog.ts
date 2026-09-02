@@ -97,6 +97,12 @@ export const CATALOG: Record<string, Catalog> = {
     shapeCircles: "Circles",
     shapePentagons: "Pentagons",
     shapeBerries: "Berries",
+    // Announcer lines: spoken by the ElevenLabs voice (see scripts/generate-voices.ts).
+    // Only en/es are voiced; keep them short — every character costs a credit.
+    voiceGameStart: "Let's go!",
+    voiceLevelUp: "Level up!",
+    voiceGameOver: "Game over!",
+    voiceNewHighScore: "New high score!",
   },
   es: {
     gameName: "Burbujas",
@@ -138,6 +144,10 @@ export const CATALOG: Record<string, Catalog> = {
     shapeCircles: "Círculos",
     shapePentagons: "Pentágonos",
     shapeBerries: "Moras",
+    voiceGameStart: "¡Vamos!",
+    voiceLevelUp: "¡Subes de nivel!",
+    voiceGameOver: "¡Fin del juego!",
+    voiceNewHighScore: "¡Nuevo récord!",
   },
   fr: {
     gameName: "Bulles",
@@ -179,6 +189,10 @@ export const CATALOG: Record<string, Catalog> = {
     shapeCircles: "Cercles",
     shapePentagons: "Pentagones",
     shapeBerries: "Mûres",
+    voiceGameStart: "C'est parti !",
+    voiceLevelUp: "Niveau supérieur !",
+    voiceGameOver: "Partie terminée !",
+    voiceNewHighScore: "Nouveau record !",
   },
   de: {
     gameName: "Blasen",
@@ -220,6 +234,10 @@ export const CATALOG: Record<string, Catalog> = {
     shapeCircles: "Kreise",
     shapePentagons: "Fünfecke",
     shapeBerries: "Beeren",
+    voiceGameStart: "Los geht's!",
+    voiceLevelUp: "Neues Level!",
+    voiceGameOver: "Spiel vorbei!",
+    voiceNewHighScore: "Neuer Rekord!",
   },
   it: {
     gameName: "Bolle",
@@ -261,6 +279,10 @@ export const CATALOG: Record<string, Catalog> = {
     shapeCircles: "Cerchi",
     shapePentagons: "Pentagoni",
     shapeBerries: "More",
+    voiceGameStart: "Si parte!",
+    voiceLevelUp: "Livello superiore!",
+    voiceGameOver: "Fine del gioco!",
+    voiceNewHighScore: "Nuovo record!",
   },
   pt: {
     gameName: "Bolhas",
@@ -302,6 +324,10 @@ export const CATALOG: Record<string, Catalog> = {
     shapeCircles: "Círculos",
     shapePentagons: "Pentágonos",
     shapeBerries: "Amoras",
+    voiceGameStart: "Vamos lá!",
+    voiceLevelUp: "Subiu de nível!",
+    voiceGameOver: "Fim de jogo!",
+    voiceNewHighScore: "Novo recorde!",
   },
   nl: {
     gameName: "Bellen",
@@ -343,6 +369,10 @@ export const CATALOG: Record<string, Catalog> = {
     shapeCircles: "Cirkels",
     shapePentagons: "Vijfhoeken",
     shapeBerries: "Bramen",
+    voiceGameStart: "Daar gaan we!",
+    voiceLevelUp: "Level omhoog!",
+    voiceGameOver: "Spel voorbij!",
+    voiceNewHighScore: "Nieuw record!",
   },
   sv: {
     gameName: "Bubblor",
@@ -384,6 +414,10 @@ export const CATALOG: Record<string, Catalog> = {
     shapeCircles: "Cirklar",
     shapePentagons: "Femhörningar",
     shapeBerries: "Björnbär",
+    voiceGameStart: "Nu kör vi!",
+    voiceLevelUp: "Ny nivå!",
+    voiceGameOver: "Spelet är slut!",
+    voiceNewHighScore: "Nytt rekord!",
   },
   pl: {
     gameName: "Bańki",
@@ -425,6 +459,10 @@ export const CATALOG: Record<string, Catalog> = {
     shapeCircles: "Koła",
     shapePentagons: "Pięciokąty",
     shapeBerries: "Jeżyny",
+    voiceGameStart: "Zaczynamy!",
+    voiceLevelUp: "Nowy poziom!",
+    voiceGameOver: "Koniec gry!",
+    voiceNewHighScore: "Nowy rekord!",
   },
   cs: {
     gameName: "Bubliny",
@@ -466,6 +504,10 @@ export const CATALOG: Record<string, Catalog> = {
     shapeCircles: "Kruhy",
     shapePentagons: "Pětiúhelníky",
     shapeBerries: "Ostružiny",
+    voiceGameStart: "Jdeme na to!",
+    voiceLevelUp: "Nová úroveň!",
+    voiceGameOver: "Konec hry!",
+    voiceNewHighScore: "Nový rekord!",
   },
   ro: {
     gameName: "Bule",
@@ -507,6 +549,10 @@ export const CATALOG: Record<string, Catalog> = {
     shapeCircles: "Cercuri",
     shapePentagons: "Pentagoane",
     shapeBerries: "Mure",
+    voiceGameStart: "Să începem!",
+    voiceLevelUp: "Nivel nou!",
+    voiceGameOver: "Joc terminat!",
+    voiceNewHighScore: "Record nou!",
   },
   el: {
     gameName: "Φούσκες",
@@ -548,6 +594,10 @@ export const CATALOG: Record<string, Catalog> = {
     shapeCircles: "Κύκλοι",
     shapePentagons: "Πεντάγωνα",
     shapeBerries: "Βατόμουρα",
+    voiceGameStart: "Πάμε!",
+    voiceLevelUp: "Νέο επίπεδο!",
+    voiceGameOver: "Τέλος παιχνιδιού!",
+    voiceNewHighScore: "Νέο ρεκόρ!",
   },
   uk: {
     gameName: "Бульбашки",
@@ -589,6 +639,10 @@ export const CATALOG: Record<string, Catalog> = {
     shapeCircles: "Кола",
     shapePentagons: "П'ятикутники",
     shapeBerries: "Ожина",
+    voiceGameStart: "Поїхали!",
+    voiceLevelUp: "Новий рівень!",
+    voiceGameOver: "Гру завершено!",
+    voiceNewHighScore: "Новий рекорд!",
   },
   ru: {
     gameName: "Пузыри",
@@ -630,6 +684,10 @@ export const CATALOG: Record<string, Catalog> = {
     shapeCircles: "Круги",
     shapePentagons: "Пятиугольники",
     shapeBerries: "Ежевика",
+    voiceGameStart: "Поехали!",
+    voiceLevelUp: "Новый уровень!",
+    voiceGameOver: "Игра окончена!",
+    voiceNewHighScore: "Новый рекорд!",
   },
   tr: {
     gameName: "Baloncuklar",
@@ -671,6 +729,10 @@ export const CATALOG: Record<string, Catalog> = {
     shapeCircles: "Daireler",
     shapePentagons: "Beşgenler",
     shapeBerries: "Böğürtlenler",
+    voiceGameStart: "Hadi başlayalım!",
+    voiceLevelUp: "Seviye atladın!",
+    voiceGameOver: "Oyun bitti!",
+    voiceNewHighScore: "Yeni rekor!",
   },
   ar: {
     gameName: "فقاعات",
@@ -712,6 +774,10 @@ export const CATALOG: Record<string, Catalog> = {
     shapeCircles: "دوائر",
     shapePentagons: "خماسيات",
     shapeBerries: "توت",
+    voiceGameStart: "هيا بنا!",
+    voiceLevelUp: "مستوى جديد!",
+    voiceGameOver: "انتهت اللعبة!",
+    voiceNewHighScore: "رقم قياسي جديد!",
   },
   hi: {
     gameName: "बुलबुले",
@@ -753,6 +819,10 @@ export const CATALOG: Record<string, Catalog> = {
     shapeCircles: "वृत्त",
     shapePentagons: "पंचभुज",
     shapeBerries: "जामुन",
+    voiceGameStart: "चलो शुरू करें!",
+    voiceLevelUp: "नया लेवल!",
+    voiceGameOver: "खेल खत्म!",
+    voiceNewHighScore: "नया रिकॉर्ड!",
   },
   zh: {
     gameName: "泡泡",
@@ -794,6 +864,10 @@ export const CATALOG: Record<string, Catalog> = {
     shapeCircles: "圆形",
     shapePentagons: "五边形",
     shapeBerries: "黑莓",
+    voiceGameStart: "开始吧！",
+    voiceLevelUp: "升级了！",
+    voiceGameOver: "游戏结束！",
+    voiceNewHighScore: "新纪录！",
   },
   ja: {
     gameName: "バブル",
@@ -835,6 +909,10 @@ export const CATALOG: Record<string, Catalog> = {
     shapeCircles: "円",
     shapePentagons: "五角形",
     shapeBerries: "ベリー",
+    voiceGameStart: "スタート！",
+    voiceLevelUp: "レベルアップ！",
+    voiceGameOver: "ゲームオーバー！",
+    voiceNewHighScore: "新記録！",
   },
   ko: {
     gameName: "버블",
@@ -876,6 +954,10 @@ export const CATALOG: Record<string, Catalog> = {
     shapeCircles: "원",
     shapePentagons: "오각형",
     shapeBerries: "베리",
+    voiceGameStart: "시작!",
+    voiceLevelUp: "레벨 업!",
+    voiceGameOver: "게임 오버!",
+    voiceNewHighScore: "신기록!",
   },
   vi: {
     gameName: "Bong bóng",
@@ -917,6 +999,10 @@ export const CATALOG: Record<string, Catalog> = {
     shapeCircles: "Hình tròn",
     shapePentagons: "Ngũ giác",
     shapeBerries: "Mâm xôi",
+    voiceGameStart: "Bắt đầu nào!",
+    voiceLevelUp: "Lên cấp!",
+    voiceGameOver: "Trò chơi kết thúc!",
+    voiceNewHighScore: "Kỷ lục mới!",
   },
   id: {
     gameName: "Gelembung",
@@ -958,6 +1044,10 @@ export const CATALOG: Record<string, Catalog> = {
     shapeCircles: "Lingkaran",
     shapePentagons: "Segi lima",
     shapeBerries: "Beri",
+    voiceGameStart: "Ayo mulai!",
+    voiceLevelUp: "Naik level!",
+    voiceGameOver: "Permainan selesai!",
+    voiceNewHighScore: "Rekor baru!",
   },
   th: {
     gameName: "ฟองสบู่",
@@ -999,10 +1089,23 @@ export const CATALOG: Record<string, Catalog> = {
     shapeCircles: "วงกลม",
     shapePentagons: "ห้าเหลี่ยม",
     shapeBerries: "เบอร์รี",
+    voiceGameStart: "ลุยกันเลย!",
+    voiceLevelUp: "เลเวลอัป!",
+    voiceGameOver: "จบเกม!",
+    voiceNewHighScore: "สถิติใหม่!",
   },
 
   // Country-variant partial overrides: only keys that genuinely differ from
   // the base-language catalog. Everything else falls back per-key to the base.
+
+  // Mexico: announcer lines with Mexican phrasing (the base 'es' lines are
+  // neutral). Text-only keys are unchanged. Voiced separately as es-MX.
+  "es-MX": {
+    voiceGameStart: "¡A darle!",
+    voiceLevelUp: "¡Subiste de nivel!",
+    voiceGameOver: "¡Se acabó el juego!",
+    voiceNewHighScore: "¡Rompiste el récord!",
+  },
 
   // Spain: "Volver" instead of the Latin-American "Regresar".
   "es-ES": {

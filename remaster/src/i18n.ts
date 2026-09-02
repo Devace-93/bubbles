@@ -74,6 +74,7 @@ export interface Strings {
   shareFb: string;
   tapToStart: string;
   back: string;
+  newHighScore: string;
 }
 
 export function t(): Strings {
@@ -111,5 +112,6 @@ export function t(): Strings {
     shareFb: get("shareFb"),
     tapToStart: get("tapToStart"),
     back: get("back"),
+    newHighScore: get("voiceNewHighScore"),
   };
 }
