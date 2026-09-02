@@ -11,6 +11,7 @@ import { t } from "../i18n";
 import { openShare } from "../share";
 import { recordScore } from "../highScore";
 import { announce } from "./announcer";
+import { onLangChange } from "./langChange";
 
 export class EndScene extends Phaser.Scene {
   private result!: RoundResult;
@@ -23,35 +24,51 @@ export class EndScene extends Phaser.Scene {
     this.result = result;
   }
 
+  private isHighScore = false;
+  // everything drawn by render(), destroyed and redrawn on a language change
+  private ui: Phaser.GameObjects.GameObject[] = [];
+
   create(): void {
+    this.sound.play("WOW");
+    this.isHighScore = recordScore(this.result.score);
+    if (this.isHighScore) announce(this, "newHighScore");
+    this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x03293d, 0.88);
+    this.render();
+    onLangChange(this, () => this.render());
+  }
+
+  private render(): void {
+    for (const obj of this.ui) obj.destroy();
+    this.ui = [];
     const s = t();
     const r = this.result;
-    this.sound.play("WOW");
-    const isHighScore = recordScore(r.score);
-    if (isHighScore) announce(this, "newHighScore");
-
-    this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x03293d, 0.88);
+    const isHighScore = this.isHighScore;
 
     const title = { fontFamily: "system-ui, sans-serif", fontStyle: "bold", color: "#ffffff" };
     let y = 130;
-    this.add
+    this.ui.push(
+      this.add
       .text(GAME_WIDTH / 2, y, `${s.finalScore}: ${r.score}`, {
         ...title,
         fontFamily: '"Luckiest Guy", system-ui, sans-serif',
         fontSize: "56px",
         color: "#ffb347",
       })
-      .setOrigin(0.5);
+      .setOrigin(0.5),
+    );
     y += 64;
-    this.add
-      .text(GAME_WIDTH / 2, y, s.bestStreak(r.bestStreak), { ...title, fontSize: "34px", color: "#8ee6d8" })
-      .setOrigin(0.5);
+    this.ui.push(
+      this.add
+        .text(GAME_WIDTH / 2, y, s.bestStreak(r.bestStreak), { ...title, fontSize: "34px", color: "#8ee6d8" })
+        .setOrigin(0.5),
+    );
     if (isHighScore) {
       y += 48;
       const badge = this.add
         .text(GAME_WIDTH / 2, y, `🏆 ${s.newHighScore}`, { ...title, fontSize: "30px", color: "#ffe066" })
         .setOrigin(0.5);
       this.tweens.add({ targets: badge, scale: 1.08, duration: 500, yoyo: true, repeat: -1, ease: "Sine.easeInOut" });
+      this.ui.push(badge);
     }
     y += 70;
 
@@ -65,8 +82,10 @@ export class EndScene extends Phaser.Scene {
       }
     }
     for (const [label, pts] of rows) {
-      this.add.text(GAME_WIDTH * 0.2, y, label, { ...title, fontSize: "30px" });
-      this.add.text(GAME_WIDTH * 0.8, y, pts, { ...title, fontSize: "30px", color: "#ffb347" }).setOrigin(1, 0);
+      this.ui.push(
+        this.add.text(GAME_WIDTH * 0.2, y, label, { ...title, fontSize: "30px" }),
+        this.add.text(GAME_WIDTH * 0.8, y, pts, { ...title, fontSize: "30px", color: "#ffb347" }).setOrigin(1, 0),
+      );
       y += 46;
     }
 
@@ -85,7 +104,7 @@ export class EndScene extends Phaser.Scene {
       .rectangle(GAME_WIDTH / 2, y, 420, 78, bg)
       .setInteractive({ useHandCursor: true });
     rect.setStrokeStyle(3, 0xffffff, 0.35);
-    this.add
+    const text = this.add
       .text(GAME_WIDTH / 2, y, label, {
         fontFamily: "system-ui, sans-serif",
         fontSize: "32px",
@@ -94,5 +113,6 @@ export class EndScene extends Phaser.Scene {
       })
       .setOrigin(0.5);
     rect.on("pointerdown", onClick);
+    this.ui.push(rect, text);
   }
 }

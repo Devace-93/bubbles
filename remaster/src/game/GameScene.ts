@@ -22,6 +22,7 @@ import {
 import { t } from "../i18n";
 import { addBackButton } from "./backButton";
 import { announce } from "./announcer";
+import { onLangChange } from "./langChange";
 
 interface SpawnEntry {
   at: number; // seconds from round start
@@ -146,6 +147,7 @@ export class GameScene extends Phaser.Scene {
       .text(102, 60, "", { ...style, fontSize: "24px", color: "#8ee6d8" })
       .setDepth(51);
     this.updateHud();
+    onLangChange(this, () => this.updateHud());
   }
 
   private updateHud(): void {

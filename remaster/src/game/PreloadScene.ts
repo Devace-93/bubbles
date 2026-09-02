@@ -3,6 +3,7 @@ import { GAME_HEIGHT, GAME_WIDTH, SOUNDS, SPRITES } from "./config";
 import { t } from "../i18n";
 import { addBackButton } from "./backButton";
 import { preloadVoices } from "./announcer";
+import { onLangChange } from "./langChange";
 
 export class PreloadScene extends Phaser.Scene {
   constructor() {
@@ -34,7 +35,7 @@ export class PreloadScene extends Phaser.Scene {
 
   create(): void {
     // A user gesture is required before the browser lets audio play.
-    this.add
+    const title = this.add
       .text(GAME_WIDTH / 2, GAME_HEIGHT * 0.3, t().gameName.toUpperCase(), {
         fontFamily: '"Luckiest Guy", system-ui, sans-serif',
         fontSize: "110px",
@@ -55,6 +56,10 @@ export class PreloadScene extends Phaser.Scene {
       })
       .setOrigin(0.5);
     this.tweens.add({ targets: tap, alpha: 0.3, duration: 600, yoyo: true, repeat: -1 });
+    onLangChange(this, () => {
+      title.setText(t().gameName.toUpperCase());
+      tap.setText(t().tapToStart);
+    });
     addBackButton(this, 56, 54, 62);
     const start = (
       _pointer: Phaser.Input.Pointer,
