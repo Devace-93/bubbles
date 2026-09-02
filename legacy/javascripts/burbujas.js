@@ -38,18 +38,24 @@ var plantillas,
 	mayorRacha = 0,
 	tabla;
 
-var frutas_name = window.BI18N ? {
-	cuadrado: BI18N.t('shapeSquares'),
-	triangulo : BI18N.t('shapeTriangles'),
-	circulo : BI18N.t('shapeCircles'),
-	pentagono : BI18N.t('shapePentagons'),
-	mora : BI18N.t('shapeBerries')
-} : {
+// Shape names are resolved when a piece spawns (not at load) so a language
+// change from the corner selector applies without reloading.
+var frutas_name_keys = {
+	cuadrado: 'shapeSquares',
+	triangulo : 'shapeTriangles',
+	circulo : 'shapeCircles',
+	pentagono : 'shapePentagons',
+	mora : 'shapeBerries'
+};
+var frutas_name_es = {
 	cuadrado: 'Cuadrados',
 	triangulo : 'Triangulos',
 	circulo : 'Circulos',
 	pentagono : 'Pentagonos',
 	mora : 'Moras'
+};
+function frutaName(tipo) {
+	return window.BI18N ? BI18N.t(frutas_name_keys[tipo]) : frutas_name_es[tipo];
 }
 
 
@@ -160,7 +166,7 @@ function crearFruta(id,tipo,left,noClick){
 
 	var fruta = $('<div>');
 	fruta.id = id;
-	fruta.name = frutas_name[tipo];
+	fruta.name = frutaName(tipo);
 	fruta.raiz = tipo;
 
 
