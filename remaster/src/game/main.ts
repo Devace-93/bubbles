@@ -47,4 +47,6 @@ document.fonts.load('16px "Luckiest Guy"').finally(() => {
     scene: [PreloadScene, GameScene, EndScene],
   });
   applySound(getSoundSettings());
+  // dev only: lets the console poke at scenes (e.g. __game.scene.getScene("game"))
+  if (import.meta.env.DEV) (window as unknown as { __game: Phaser.Game }).__game = game;
 });

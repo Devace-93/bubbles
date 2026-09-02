@@ -380,8 +380,20 @@ export class GameScene extends Phaser.Scene {
       this.sound.stopByKey("SIRENA");
       this.sirenPlaying = false;
     }
-    this.timerText.setAlpha(0);
-    this.tweens.add({ targets: this.timerText, alpha: 1, duration: 200, repeat: 2, yoyo: true });
+    // Blink the clock three times and end fully visible. Starting from alpha 1
+    // matters: a yoyo tween returns to its start value, so the old 0 → 1
+    // version finished invisible. Popping two berries quickly must not stack
+    // tweens either.
+    this.tweens.killTweensOf(this.timerText);
+    this.timerText.setAlpha(1);
+    this.tweens.add({
+      targets: this.timerText,
+      alpha: 0,
+      duration: 200,
+      repeat: 2,
+      yoyo: true,
+      onComplete: () => this.timerText.setAlpha(1),
+    });
   }
 
   // ── End of round ──────────────────────────────────────────────────────────
