@@ -745,16 +745,26 @@ body,.back_image_special,.backg{
 	right: 0;
 	z-index: 50;
 	display: flex;
-	gap: 18px;
+	flex-wrap: wrap;
+	gap: 4px 18px;
 	align-items: center;
 	justify-content: center;
 	padding: 6px 10px;
+	padding-bottom: calc(6px + env(safe-area-inset-bottom));
 	font: 13px sans-serif;
 	color: #fff;
 	background: rgba(3, 41, 61, 0.55);
 }
 .site-footer a{
 	color: #fff;
+	white-space: nowrap;
+}
+@media (max-width: 560px){
+	.site-footer{
+		gap: 2px 12px;
+		font-size: 12px;
+		padding-top: 4px;
+	}
 }
 
 /* Corner language selector (shared catalog, generated vendor/i18n.js) */
