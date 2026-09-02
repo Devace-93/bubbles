@@ -242,9 +242,11 @@ function crearFruta(id,tipo,left,noClick){
 			return;
 		clicks[fruta.id]=true;
 
-		contadoresFrutas[fruta.tipo][fruta.name] || (contadoresFrutas[fruta.tipo][fruta.name]=0);
+		// keyed by shape (fruta.raiz), not by its localized name, so the final
+		// table can list every shape and translate it at render time
+		contadoresFrutas[fruta.tipo][fruta.raiz] || (contadoresFrutas[fruta.tipo][fruta.raiz]=0);
 
-		contadoresFrutas[fruta.tipo][fruta.name]++;
+		contadoresFrutas[fruta.tipo][fruta.raiz]++;
 
 		var mifruta = $(fruta.find('.fruta,.no_burbuja')),
 			puntos =  $(fruta.find('.puntos'))
@@ -677,8 +679,11 @@ function crearTablaResultados(){
 		total : 0
 	};
 
-	for(var fruta in contadoresFrutas['50']){
-		var numero = contadoresFrutas['50'][fruta],
+	// Every shape gets a row, with 0 when none of it was popped, so the table
+	// reads the same whether or not the player clicked anything.
+	for(var b = 0; b < tipos.buenas.length; b++){
+		var fruta = tipos.buenas[b],
+			numero = contadoresFrutas['50'][fruta] || 0,
 			total = numero * 50;
 			buenas.total += total;
 			buenas.cantidad += numero;
@@ -687,14 +692,15 @@ function crearTablaResultados(){
 			pts : 'PTS',
 			x : 'x',
 			cantidad : numero,
-			name : fruta,
+			name : frutaName(fruta),
 			clase : 'positivo',
 			total : total,
 		});
 	}
 
-	for(var fruta in contadoresFrutas['menos7']){
-		var numero = contadoresFrutas['menos7'][fruta],
+	for(var m = 0; m < tipos.malas.length; m++){
+		var fruta = tipos.malas[m],
+			numero = contadoresFrutas['menos7'][fruta] || 0,
 			total = numero * -7;
 			malas.total += total;
 			malas.cantidad += numero;
@@ -703,7 +709,7 @@ function crearTablaResultados(){
 			pts : 'PTS',
 			x : 'x',
 			cantidad : numero,
-			name : fruta,
+			name : frutaName(fruta),
 			clase : 'negativo',
 			total : total
 		});
