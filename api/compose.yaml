@@ -1,0 +1,60 @@
+# Everything runs in containers; no local Python needed.
+#
+#   docker compose up --build            # Postgres + API (migrates, then serves on :8000, live reload)
+#   docker compose run --rm test         # pytest against the bubbles_test database
+#   docker compose run --rm api python scripts/migrate.py   # migrations only
+#   docker compose down                  # stop (add -v to drop the database)
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: bubbles
+      POSTGRES_PASSWORD: bubbles
+      POSTGRES_DB: bubbles
+    ports:
+      - "${BUBBLES_DB_PORT:-5433}:5432"
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+      # creates the bubbles_test database on first start
+      - ./docker/init-test-db.sql:/docker-entrypoint-initdb.d/init-test-db.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bubbles -d bubbles"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      target: dev
+    volumes:
+      - .:/app          # live source; the dev image installs the package editable
+    environment:
+      DATABASE_URL: postgresql://bubbles:bubbles@db:5432/bubbles
+      JWT_SECRET: ${JWT_SECRET:-dev-only-secret-change-me-0123456789}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173}
+      PORT: 8000
+    ports:
+      - "${BUBBLES_API_PORT:-8000}:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  test:
+    profiles: ["test"]
+    build:
+      context: .
+      target: dev
+    volumes:
+      - .:/app
+    environment:
+      TEST_DATABASE_URL: postgresql://bubbles:bubbles@db:5432/bubbles_test
+      JWT_SECRET: test-secret-not-for-production-0123456789
+      CORS_ORIGINS: http://localhost:5173
+    command: pytest
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  dbdata:
