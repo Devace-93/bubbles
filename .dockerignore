@@ -10,3 +10,4 @@ remaster/public/assets
 Dockerfile
 compose.yaml
 *.md
+api
