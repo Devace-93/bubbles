@@ -75,6 +75,13 @@ export interface Strings {
   tapToStart: string;
   back: string;
   newHighScore: string;
+  // online scores (accounts session + api/)
+  leaderboardTitle: string;
+  leaderboardEmpty: string;
+  loginToSave: string;
+  verifyToSave: string;
+  onlineBest: (n: number) => string;
+  newOnlineRecord: string;
 }
 
 export function t(): Strings {
@@ -113,5 +120,11 @@ export function t(): Strings {
     tapToStart: get("tapToStart"),
     back: get("back"),
     newHighScore: get("voiceNewHighScore"),
+    leaderboardTitle: get("leaderboardTitle"),
+    leaderboardEmpty: get("leaderboardEmpty"),
+    loginToSave: get("loginToSave"),
+    verifyToSave: get("verifyToSave"),
+    onlineBest: (n) => fmt(get("onlineBest"), { n }),
+    newOnlineRecord: get("newOnlineRecord"),
   };
 }

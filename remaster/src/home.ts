@@ -3,6 +3,8 @@ import "./style.css";
 import { startBubbleBackground } from "./bg";
 import { getLang, isRtl, t } from "./i18n";
 import { mountLangSelector } from "./langSelector";
+import { mountLeaderboard } from "./leaderboard";
+import { onPlayerChange } from "./session";
 import { openShare } from "./share";
 
 function setMeta(selector: string, content: string): void {
@@ -32,14 +34,22 @@ function apply(): void {
   }
 }
 
+const leaderboard = document.getElementById("leaderboard")!;
+
 function mountSelector(): void {
   // re-mounted on every change so the button shows the new flag/code
   mountLangSelector(document.getElementById("lang-sel")!, () => {
     apply();
     mountSelector();
+    mountLeaderboard(leaderboard);
   });
 }
 mountSelector();
+
+// Online top 10 (hidden while the API is unreachable); refreshed when the
+// session changes so the signed-in player's row gets highlighted.
+mountLeaderboard(leaderboard);
+onPlayerChange(() => mountLeaderboard(leaderboard, { refresh: true }));
 
 document.getElementById("share-btn")!.addEventListener("click", () => openShare());
 

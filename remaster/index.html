@@ -17,10 +17,15 @@
   <script src="https://retro.3m4.net/widget.js" data-project-key="retro_pub_T4yGlJ3sbUhGpqTnbZ_-wCcYLSV07iZd" defer></script>
   <!-- metrics web analytics (page views, visitors, referrers, devices; cookie-less); the project key is public by design -->
   <script src="https://metrics.3m4.net/m.js" data-key="metrics_pub_GbX8JBEX36dY5fLX86hX7g2RiWTIAe5U" defer></script>
+  <!-- 3m4 session widget (accounts.3m4.net): optional login, shared with every 3m4 app -->
+  <script src="%VITE_ACCOUNTS_URL%/session.js" data-mount="#session" defer></script>
   </head>
   <body>
     <div id="app">
-      <div id="lang-sel"></div>
+      <div id="topbar">
+        <div id="session"></div>
+        <div id="lang-sel"></div>
+      </div>
       <div id="banner" hidden></div>
       <main class="hero">
         <h1 class="title" data-i18n="gameName">BUBBLES</h1>
@@ -48,6 +53,8 @@
           <a class="btn btn-play" href="/play/" data-i18n="play"></a>
           <a class="btn btn-classic" href="/classic/" data-i18n="classic"></a>
         </nav>
+        <!-- online top 10; stays hidden until the API answers (see src/leaderboard.ts) -->
+        <section id="leaderboard" class="leaderboard" aria-live="polite" hidden></section>
       </main>
       <footer>
         <a data-i18n="madeBy" href="https://www.linkedin.com/in/enrique-magallon/" target="_blank" rel="noopener"></a>

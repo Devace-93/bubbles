@@ -1,9 +1,12 @@
 # Bubbles API — design
 
-Accounts and leaderboard backend for the Bubbles game. Small on purpose: a
-Flask app with plain SQL, one Postgres database, deployed as a single Railway
-service. The game keeps working without an account; the API only adds
-optional login and an online leaderboard.
+Leaderboard backend for the Bubbles game. Small on purpose: a Flask app with
+plain SQL, one Postgres database, deployed as a single Railway service. The
+game keeps working without an account; the API only adds an online
+leaderboard for players signed in with their **3m4 account**
+(accounts.3m4.net — the identity service shared by every 3m4 app; its
+`CONTRACT.md` is binding here). This API never sees a password: it verifies
+the shared session and caches the public profile.
 
 ## Stack
 
@@ -12,8 +15,7 @@ optional login and an online leaderboard.
 | Runtime        | Python 3.12                              |
 | Web            | Flask 3, served by gunicorn              |
 | Database       | PostgreSQL (Railway), psycopg 3, no ORM  |
-| Passwords      | argon2id via argon2-cffi                 |
-| Sessions       | JWT HS256 (PyJWT), 7-day expiry          |
+| Sessions       | accounts.3m4.net cookie / bearer (EdDSA JWT), verified with PyJWT against its JWKS |
 | CORS           | flask-cors, explicit origin allowlist    |
 | Rate limiting  | flask-limiter (in-memory per instance)   |
 | Tests          | pytest against a real Postgres           |
@@ -35,19 +37,19 @@ api/
 │  ├─ config.py                # Settings read from the environment (fail fast)
 │  ├─ db.py                    # connection pool, `connection()` context manager
 │  ├─ errors.py                # ApiError + JSON error handlers
-│  ├─ auth.py                  # hash/verify passwords, issue/read JWTs, require_auth
-│  ├─ validation.py            # username / password / score rules
+│  ├─ auth.py                  # require_auth / require_verified on top of m4session
+│  ├─ m4session.py             # vendored verifier from the accounts repo (JWKS cache, EdDSA)
+│  ├─ validation.py            # score / limit rules
 │  ├─ queries/                 # one module per table, one function per query
 │  │  ├─ users.py
 │  │  └─ scores.py
 │  └─ routes/                  # one blueprint per resource
 │     ├─ health.py
-│     ├─ auth.py
 │     ├─ me.py
 │     └─ scores.py
 └─ tests/
-   ├─ conftest.py              # app + database fixtures, tables truncated per test
-   ├─ test_auth.py
+   ├─ conftest.py              # app + database fixtures, minted sessions, stubbed JWKS
+   ├─ test_session.py
    ├─ test_scores.py
    └─ test_health.py
 ```
@@ -59,11 +61,14 @@ formatting), no business logic in routes beyond validation and orchestration.
 ## Data model
 
 ```sql
-users
-  id            bigint identity PK
-  username      citext UNIQUE, checked against ^[a-z0-9_]{3,20}$ (as text)
-  password_hash text        -- argon2id string, includes its own salt/params
-  created_at    timestamptz default now()
+users                      -- a cached mirror of an accounts.3m4.net identity
+  id             bigint identity PK
+  identity_id    uuid UNIQUE          -- the JWT `sub`
+  handle         citext UNIQUE        -- the global 3m4 handle (leaderboard name)
+  name           text
+  avatar_url     text
+  email_verified boolean default false
+  created_at     timestamptz default now()
 
 scores
   id          bigint identity PK
@@ -80,59 +85,65 @@ Indexes:
 - `scores (user_id, score DESC)` — best score per user, feeds the leaderboard.
 - `scores (user_id, created_at DESC)` — a user's own history.
 
-`citext` makes usernames unique case-insensitively (`Ana` and `ana` are the
-same account); the API lowercases them anyway before storing.
+`citext` keeps handles unique case-insensitively. Rows are created on a
+player's first request from the session claims and refreshed on every request
+(handle, name, avatar, verified flag); the format of a handle is accounts'
+business, not ours. Migration `002_identity.sql` dropped the password column
+and every pre-existing row (decision 2026-10-16: no real users yet).
 
 ## Endpoints
 
 All bodies are JSON. Errors are `{"error": "<snake_case_code>"}` with the
-HTTP status below. Authenticated routes read `Authorization: Bearer <jwt>`.
+HTTP status below. Authenticated routes read the `3m4_session` cookie
+(sent automatically by the browser, `credentials: "include"`) or
+`Authorization: Bearer <jwt>`. There is no login endpoint: the game sends the
+player to `${ACCOUNTS_URL}/login?return_to=…` (through the session widget).
 
-| Method | Path          | Auth | Rate limit | Success                          |
-|--------|---------------|------|------------|----------------------------------|
-| GET    | /health       | no   | none       | 200 `{"status":"ok"}` (pings DB) |
-| POST   | /auth/register| no   | 5/min/IP   | 201 `{token, user}`              |
-| POST   | /auth/login   | no   | 10/min/IP  | 200 `{token, user}`              |
-| GET    | /me           | yes  | none       | 200 `{user}`                     |
-| GET    | /me/scores    | yes  | none       | 200 `{scores:[…]}` newest first, max 50 |
-| POST   | /scores       | yes  | 30/min/user| 201 `{score, best}`              |
-| GET    | /scores/top   | no   | none       | 200 `{scores:[…]}`               |
+| Method | Path          | Auth            | Rate limit    | Success                          |
+|--------|---------------|-----------------|---------------|----------------------------------|
+| GET    | /health       | no              | none          | 200 `{"status":"ok"}` (pings DB) |
+| GET    | /me           | session         | none          | 200 `{user}`                     |
+| GET    | /me/scores    | session         | none          | 200 `{scores:[…]}` newest first, max 50 |
+| POST   | /scores       | session, verified e-mail | 30/min/session | 201 `{score, best}`     |
+| GET    | /scores/top   | no              | none          | 200 `{scores:[…]}`               |
 
 Shapes:
-- `user`: `{"id": 1, "username": "ana", "created_at": "2026-09-02T23:00:00Z"}`
+- `user`: `{"id": 1, "handle": "ana", "name": "Ana López", "avatar_url": "https://accounts.3m4.net/avatars/<uuid>?v=3", "email_verified": true, "created_at": "2026-09-02T23:00:00Z"}`
 - `score`: `{"id": 9, "score": 1250, "created_at": "…"}`
-- `/scores/top` rows add `"username"`; one row per user (their best score),
+- `/scores/top` rows add `"handle"` and `"avatar_url"`; one row per user (their best score),
   ordered by score desc then earliest first; `?limit=` 1–100, default 10.
 - `POST /scores` body `{"score": 1250}`; `best` in the response is the user's
   best score after this insert, so the client can show "new online record".
 
 Error codes:
-- 400 `invalid_json`, `invalid_username`, `invalid_password`, `invalid_score`,
-  `invalid_limit`
-- 401 `missing_token`, `invalid_token`, `expired_token`, `invalid_credentials`
-- 409 `username_taken`
+- 400 `invalid_json`, `invalid_score`, `invalid_limit`
+- 401 `no_session` (nothing presented), `session_expired` (the browser should
+  `POST ${ACCOUNTS_URL}/api/session/refresh` with credentials and retry once),
+  `invalid_session` (bad signature / issuer / audience / unknown key)
+- 403 `email_unverified` (POST /scores until the e-mail is confirmed)
 - 404 `not_found`, 405 `method_not_allowed`, 429 `rate_limited`,
-  500 `internal_error`
+  500 `internal_error`, 503 `database_unavailable` (health only)
 
 ## Auth
 
-- Register: validate, lowercase the username, hash with argon2id (library
-  defaults), insert; a unique violation maps to `username_taken`. Returns a
-  token immediately so registering also logs in.
-- Login: fetch by username, verify the hash. Unknown user and wrong password
-  both answer `invalid_credentials` (no user enumeration). A dummy verify runs
-  when the user does not exist so timing is similar.
-- Token: JWT HS256 signed with `JWT_SECRET`, claims `sub` (user id as string),
-  `iat`, `exp` = 7 days. Sent by the client in `Authorization: Bearer`.
-  `require_auth` decodes it and loads the user (a deleted user gets
-  `invalid_token`).
-- Never log tokens, passwords or hashes; request logging is gunicorn's access
-  log only.
+- Identity is accounts.3m4.net. The browser holds its `3m4_session` cookie
+  (`Domain=.3m4.net`, 15-minute EdDSA JWT) and a refresh cookie scoped to
+  accounts; see the accounts repo's `CONTRACT.md`.
+- `require_auth` (auth.py) reads the cookie or bearer, verifies it with the
+  vendored `m4session.verify` (JWKS from
+  `${ACCOUNTS_INTERNAL_URL}/.well-known/jwks.json`, cached 10 min, issuer
+  `ACCOUNTS_URL`, audience `3m4`), then `users.upsert_from_claims` creates or
+  refreshes the local row and exposes it as `g.user` (claims as `g.identity`).
+  A stale handle held by another cached row is parked as `~<id>` so the
+  rightful owner always gets it; the parked row heals on its owner's next
+  request.
+- `require_verified` gates `POST /scores` on the `email_verified` claim
+  (403 `email_unverified`); `/me` works unverified so the client can show who
+  is signed in.
+- Never log tokens; request logging is gunicorn's access log only.
 
 ## Validation
 
-- username: after lowercasing, `^[a-z0-9_]{3,20}$`.
-- password: string, 8–128 characters (upper bound guards argon2 cost).
 - score: integer, 0–100000. The client is trusted (an arcade game has no
   server-side replay); the cap only blocks absurd values.
 - limit: integer 1–100.
@@ -140,11 +151,15 @@ Error codes:
 ## CORS and rate limiting
 
 - `CORS_ORIGINS` is a comma-separated allowlist, production value
-  `https://bubbles.3m4.net`; local dev adds `http://localhost:5173`.
-  Only `Authorization` and `Content-Type` headers, methods GET/POST.
-- flask-limiter keyed by client IP (`X-Forwarded-For` aware, Railway sits
-  behind a proxy) for register/login and by user id for `POST /scores`.
-  Storage is in-memory: fine for one instance, documented as such.
+  `https://bubbles.3m4.net`; local dev adds `http://localhost:5173` and
+  `http://localhost:4323`. Credentials are allowed (the session is a cookie),
+  which is why the list is explicit and never `*`. Only `Authorization` and
+  `Content-Type` headers, methods GET/POST.
+- flask-limiter keyed by client IP (`X-Forwarded-For` aware via ProxyFix,
+  Railway sits behind a proxy) for anonymous routes, and by a SHA-256 of the
+  presented session token for `POST /scores` (limits run before the user is
+  loaded, and the raw token never becomes a storage key). Storage is
+  in-memory: fine for one instance, documented as such.
 
 ## Configuration
 
@@ -154,8 +169,9 @@ values abort the process:
 | Variable       | Required | Notes                                        |
 |----------------|----------|----------------------------------------------|
 | DATABASE_URL   | yes      | Railway injects it; local: see .env.example  |
-| JWT_SECRET     | yes      | ≥ 32 random bytes, e.g. `python -c "import secrets;print(secrets.token_urlsafe(48))"` |
 | CORS_ORIGINS   | yes      | comma-separated origins                      |
+| ACCOUNTS_URL   | no       | identity service origin = JWT issuer (default `http://localhost:8085`; prod `https://accounts.3m4.net`) |
+| ACCOUNTS_INTERNAL_URL | no | where this process fetches the JWKS (default = ACCOUNTS_URL; local compose `http://accounts-api-1:5000` over the `edge` network) |
 | PORT           | no       | gunicorn bind port, Railway sets it (default 8000) |
 | TEST_DATABASE_URL | tests | separate database, truncated between tests   |
 
@@ -171,9 +187,12 @@ migrates itself.
 
 `pytest` runs inside the `test` compose service against the `bubbles_test`
 database (`TEST_DATABASE_URL`). `conftest.py` applies the migrations once per
-session and truncates the tables before each test. Tests exercise the HTTP
-layer with Flask's test client: register/login/me flows, validation errors,
-token errors, score posting, leaderboard ordering and limits, rate limiting.
+session and truncates the tables before each test. Sessions are minted with
+a throwaway Ed25519 key and the verifier's JWKS fetch is stubbed, so no
+accounts instance is needed. Tests exercise the HTTP layer with Flask's test
+client: session errors, cookie and bearer transport, just-in-time
+provisioning and profile refresh, the unverified gate, CORS credentials,
+score posting, leaderboard ordering and limits, rate limiting.
 
 ## Local development
 
@@ -196,20 +215,23 @@ the final `prod` target (migrate, then gunicorn).
 
 Railway project with a Postgres plugin and one service whose root directory
 is `api/`, built from the Dockerfile. Variables: `DATABASE_URL` (reference to
-the plugin), `JWT_SECRET`, `CORS_ORIGINS`. Healthcheck `GET /health`.
+the plugin), `CORS_ORIGINS`, `ACCOUNTS_URL=https://accounts.3m4.net`.
+Healthcheck `GET /health`.
 Custom domain `api.bubbles.3m4.net` via a CNAME at Bluehost. The frontend
 reads `VITE_API_URL` at build time.
 
 ## Out of scope (for now)
 
-Email, password reset, account deletion endpoint, refresh tokens, anti-cheat,
-admin tooling, per-country leaderboards.
+Anything about identity (that is accounts.3m4.net's job), anti-cheat, admin
+tooling, per-country leaderboards.
 
 ## Checkpoints
 
 1. This plan, `pyproject.toml`, Dockerfile (dev/prod targets), compose,
    `.env.example`, migration 001 and `scripts/migrate.py`.
 2. Flask app: config, db, errors, auth, validation, queries, routes, tests.
-3. Frontend: `remaster/src/api.ts`, minimal login/register UI on the home,
-   score submission from the end screen, `VITE_API_URL` wiring.
+3. Frontend: `remaster/src/api.ts` + `session.ts` (the accounts widget),
+   leaderboard on the home, score submission from the end screen,
+   `VITE_API_URL` / `VITE_ACCOUNTS_URL` wiring. (Done 2026-10-16, with the
+   move to accounts.3m4.net replacing the local login.)
 4. `DEPLOY.md`: Railway service, Postgres, variables, domain, Bluehost CNAME.
