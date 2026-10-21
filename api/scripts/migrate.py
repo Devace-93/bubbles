@@ -37,12 +37,8 @@ def apply(conn: psycopg.Connection, path: Path) -> None:
         cur.execute("INSERT INTO schema_migrations (version) VALUES (%s)", (path.name,))
 
 
-def main() -> int:
-    url = os.environ.get("DATABASE_URL")
-    if not url:
-        print("DATABASE_URL is not set", file=sys.stderr)
-        return 1
-
+def run(url: str) -> tuple[int, int]:
+    """Apply pending migrations to the database at `url`. Returns (applied, skipped)."""
     files = sorted(MIGRATIONS_DIR.glob("*.sql"))
     with psycopg.connect(url) as conn:
         with conn.transaction(), conn.cursor() as cur:
@@ -52,7 +48,16 @@ def main() -> int:
         for path in pending:
             apply(conn, path)
             print(f"applied  {path.name}")
-    print(f"{len(pending)} applied, {len(files) - len(pending)} already applied")
+    return len(pending), len(files) - len(pending)
+
+
+def main() -> int:
+    url = os.environ.get("DATABASE_URL")
+    if not url:
+        print("DATABASE_URL is not set", file=sys.stderr)
+        return 1
+    applied, skipped = run(url)
+    print(f"{applied} applied, {skipped} already applied")
     return 0
 
 

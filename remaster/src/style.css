@@ -44,10 +44,18 @@ body {
   text-align: center;
 }
 
-#lang-sel {
+#topbar {
   position: absolute;
   top: 14px;
   right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 3m4 session widget (accounts.3m4.net/session.js): pick up the arcade palette. */
+#session {
+  --accent: var(--sun);
 }
 
 #banner {
@@ -192,4 +200,89 @@ footer button {
   height: 1px;
   overflow: hidden;
   clip: rect(0 0 0 0);
+}
+
+/* Online leaderboard (src/leaderboard.ts) */
+.leaderboard {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(3px);
+  border-radius: 14px;
+  padding: 14px 16px 12px;
+  text-align: start;
+}
+
+.lb-title {
+  font-family: "Luckiest Guy", system-ui, sans-serif;
+  letter-spacing: 1px;
+  font-size: 1.15em;
+  text-align: center;
+  margin-bottom: 8px;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.25);
+}
+
+.lb-list {
+  list-style: none;
+}
+
+.lb-row {
+  display: grid;
+  grid-template-columns: 1.6em 28px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 6px;
+  border-radius: 8px;
+  font-size: 0.95em;
+}
+
+.lb-row.mine {
+  background: rgba(255, 179, 71, 0.28);
+}
+
+.lb-rank {
+  opacity: 0.75;
+  font-weight: 800;
+  text-align: end;
+}
+
+.lb-row img,
+.lb-avatar-fallback {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.lb-handle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 700;
+}
+
+.lb-score {
+  font-weight: 800;
+  color: var(--sun);
+  font-variant-numeric: tabular-nums;
+}
+
+.lb-empty,
+.lb-hint {
+  text-align: center;
+  font-size: 0.85em;
+  opacity: 0.9;
+  margin-top: 6px;
+}
+
+.lb-login {
+  background: none;
+  border: 0;
+  color: #fff;
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
 }

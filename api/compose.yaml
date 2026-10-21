@@ -31,11 +31,15 @@ services:
       - .:/app          # live source; the dev image installs the package editable
     environment:
       DATABASE_URL: postgresql://bubbles:bubbles@db:5432/bubbles
-      JWT_SECRET: ${JWT_SECRET:-dev-only-secret-change-me-0123456789}
-      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173}
+      # Identity service (accounts.3m4.net). Locally the accounts stack listens
+      # on :8085 and its API is `accounts-api-1` on the shared `edge` network.
+      ACCOUNTS_URL: ${ACCOUNTS_URL:-http://localhost:8085}
+      ACCOUNTS_INTERNAL_URL: ${ACCOUNTS_INTERNAL_URL:-http://accounts-api-1:5000}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173,http://localhost:4323}
       PORT: 8000
     ports:
       - "${BUBBLES_API_PORT:-8000}:8000"
+    networks: [default, edge]
     depends_on:
       db:
         condition: service_healthy
@@ -49,12 +53,17 @@ services:
       - .:/app
     environment:
       TEST_DATABASE_URL: postgresql://bubbles:bubbles@db:5432/bubbles_test
-      JWT_SECRET: test-secret-not-for-production-0123456789
       CORS_ORIGINS: http://localhost:5173
     command: pytest
     depends_on:
       db:
         condition: service_healthy
+
+# `edge` is the network the accounts stack publishes its API on (created by
+# `make up` in ~/accounts, or `docker network create edge`).
+networks:
+  edge:
+    external: true
 
 volumes:
   dbdata:

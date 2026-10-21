@@ -10,11 +10,21 @@ import {
 import { t } from "../i18n";
 import { openShare } from "../share";
 import { recordScore } from "../highScore";
+import { submitScore, type SubmitOutcome } from "../api";
 import { announce } from "./announcer";
 import { onLangChange } from "./langChange";
 
+// The round result of a scene (keeps onlineLine free of `this.result!` noise).
+function r(scene: EndScene): RoundResult {
+  return scene.roundResult;
+}
+
 export class EndScene extends Phaser.Scene {
   private result!: RoundResult;
+
+  get roundResult(): RoundResult {
+    return this.result;
+  }
 
   constructor() {
     super("end");
@@ -25,6 +35,8 @@ export class EndScene extends Phaser.Scene {
   }
 
   private isHighScore = false;
+  // Online submission (signed-in players only): undefined until the API answers.
+  private online: SubmitOutcome | undefined;
   // everything drawn by render(), destroyed and redrawn on a language change
   private ui: Phaser.GameObjects.GameObject[] = [];
 
@@ -35,6 +47,12 @@ export class EndScene extends Phaser.Scene {
     this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x03293d, 0.88);
     this.render();
     onLangChange(this, () => this.render());
+    // Anonymous players get a silent "anonymous" outcome; nothing changes for them.
+    submitScore(this.result.score).then((outcome) => {
+      if (!this.scene.isActive()) return;
+      this.online = outcome;
+      this.render();
+    });
   }
 
   private render(): void {
@@ -70,6 +88,13 @@ export class EndScene extends Phaser.Scene {
       this.tweens.add({ targets: badge, scale: 1.08, duration: 500, yoyo: true, repeat: -1, ease: "Sine.easeInOut" });
       this.ui.push(badge);
     }
+    const online = this.onlineLine(s);
+    if (online) {
+      y += 44;
+      this.ui.push(
+        this.add.text(GAME_WIDTH / 2, y, online.text, { ...title, fontSize: "26px", color: online.color }).setOrigin(0.5),
+      );
+    }
     y += 70;
 
     const rows: Array<[string, string]> = [
@@ -97,6 +122,21 @@ export class EndScene extends Phaser.Scene {
     this.button(y + 200, s.home, 0x35d0ba, 0x04302b, () => {
       window.location.href = "/";
     });
+  }
+
+  // One line about the online score: the player's online best (or a new
+  // online record), or why the score was not saved. Nothing for anonymous play.
+  private onlineLine(s: ReturnType<typeof t>): { text: string; color: string } | null {
+    const o = this.online;
+    if (!o) return null;
+    if (o.ok) {
+      const record = o.result.best === r(this).score;
+      return record
+        ? { text: `🌐 ${s.newOnlineRecord}`, color: "#ffe066" }
+        : { text: `🌐 ${s.onlineBest(o.result.best)}`, color: "#8ee6d8" };
+    }
+    if (o.reason === "unverified") return { text: s.verifyToSave, color: "#ffb347" };
+    return null;
   }
 
   private button(y: number, label: string, bg: number, fg: number, onClick: () => void): void {

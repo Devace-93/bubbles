@@ -49,11 +49,14 @@
   <script src="https://metrics.3m4.net/m.js" data-key="metrics_pub_GbX8JBEX36dY5fLX86hX7g2RiWTIAe5U" defer></script>
   <!-- oops error tracking (uncaught errors, rejected promises, breadcrumbs); the project key is public by design -->
   <script src="https://oops.3m4.net/o.js" data-key="oops_pub_ijTZswTzPA8WatHI_1umPRtntErVmjrk" data-env="production" defer></script>
+  <!-- 3m4 session widget (accounts.3m4.net): optional login; the end screen saves scores when signed in -->
+  <script src="%VITE_ACCOUNTS_URL%/session.js" data-mount="#session" defer></script>
   </head>
   <body>
     <canvas id="bg" aria-hidden="true"></canvas>
     <div id="game"></div>
     <div id="topbar" style="position: fixed; top: 12px; right: 14px; z-index: 2; display: flex; align-items: center; gap: 8px">
+      <div id="session"></div>
       <div id="sound-ctl"></div>
       <div id="lang-sel"></div>
     </div>

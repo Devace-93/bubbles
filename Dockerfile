@@ -10,6 +10,11 @@ ARG VITE_SITE_URL=https://bubbles.3m4.net
 ENV VITE_SITE_URL=$VITE_SITE_URL
 ARG VITE_INFO_URL=https://info.3m4.net
 ENV VITE_INFO_URL=$VITE_INFO_URL
+# Identity service (session widget + login pages) and the scores API.
+ARG VITE_ACCOUNTS_URL=https://accounts.3m4.net
+ENV VITE_ACCOUNTS_URL=$VITE_ACCOUNTS_URL
+ARG VITE_API_URL=https://api.bubbles.3m4.net
+ENV VITE_API_URL=$VITE_API_URL
 RUN bun run build
 
 FROM nginx:alpine
