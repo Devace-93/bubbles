@@ -1,7 +1,7 @@
 import "@fontsource/luckiest-guy/index.css";
 import Phaser from "phaser";
 import { startBubbleBackground } from "../bg";
-import { getLang, isRtl, t } from "../i18n";
+import { applyEmbedLabels, getLang, isRtl, t } from "../i18n";
 import { mountLangSelector } from "../langSelector";
 import { openShare } from "../share";
 import { getSoundSettings, mountSoundControl, type SoundSettings } from "../sound";
@@ -16,6 +16,7 @@ startBubbleBackground(document.getElementById("bg") as HTMLCanvasElement);
 
 function applyDomTexts(): void {
   const strings = t();
+  applyEmbedLabels(strings);
   document.documentElement.lang = getLang();
   document.documentElement.dir = isRtl() ? "rtl" : "ltr";
   document.title = strings.title;

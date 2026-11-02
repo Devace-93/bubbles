@@ -1,7 +1,7 @@
 import "@fontsource/luckiest-guy/index.css";
 import "./style.css";
 import { startBubbleBackground } from "./bg";
-import { getLang, isRtl, t } from "./i18n";
+import { applyEmbedLabels, getLang, isRtl, t } from "./i18n";
 import { mountLangSelector } from "./langSelector";
 import { mountLeaderboard } from "./leaderboard";
 import { onPlayerChange } from "./session";
@@ -13,6 +13,7 @@ function setMeta(selector: string, content: string): void {
 
 function apply(): void {
   const s = t();
+  applyEmbedLabels(s);
   document.documentElement.lang = getLang();
   document.documentElement.dir = isRtl() ? "rtl" : "ltr";
   document.title = s.title;

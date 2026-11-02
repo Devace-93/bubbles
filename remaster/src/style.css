@@ -58,6 +58,17 @@ body {
   --accent: var(--sun);
 }
 
+/* pay.js donate mounts (topbar + footer): same accent; hidden while empty so
+   nothing shifts when the portal keeps the button away (gated rollout, offline). */
+.support-mount {
+  --accent: var(--sun);
+  display: flex;
+}
+
+.support-mount:empty {
+  display: none;
+}
+
 #banner {
   margin: 8px auto 0;
   max-width: 520px;

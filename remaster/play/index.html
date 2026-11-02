@@ -42,6 +42,9 @@
       @media (max-width: 560px) {
         #foot { gap: 2px 12px; font-size: 12px; padding-top: 4px; }
       }
+      /* pay.js donate mount: arcade accent, hidden while the portal keeps the button away */
+      .support-mount { --accent: #ffb347; display: flex; }
+      .support-mount:empty { display: none; }
     </style>
   <!-- retro feedback widget (bug reports, feedback, feature requests); the project key is public by design -->
   <script src="https://retro.3m4.net/widget.js" data-project-key="retro_pub_vRS5mKfHjFmL_uAwIX5yq0QHeY4Gzo_M" defer></script>
@@ -51,6 +54,11 @@
   <script src="https://oops.3m4.net/o.js" data-key="oops_pub_ijTZswTzPA8WatHI_1umPRtntErVmjrk" data-env="production" defer></script>
   <!-- 3m4 session widget (accounts.3m4.net): optional login; the end screen saves scores when signed in -->
   <script src="%VITE_ACCOUNTS_URL%/session.js" data-mount="#session" defer></script>
+  <!-- pay.js donate button (payments.3m4.net, CONTRACT.md §10): one tag per mount, every tag shares window.m4pay.
+       The portal gates donations per viewer and only mounts the button when the switch is on; the mounts stay hidden
+       while empty. data-label is the English default: src/i18n.ts applyEmbedLabels() rewrites it from the `donate`
+       catalog key (data-i18n-label) on every language apply(), and pay.js re-renders when <html lang> changes. -->
+  <script src="%VITE_PAYMENTS_URL%/pay.js" data-app="bubbles" data-kind="donate" data-currency="usd" data-amount="500" data-label="Buy me a coffee ☕" data-i18n-label="donate" data-mount="#support-footer" defer></script>
   </head>
   <body>
     <canvas id="bg" aria-hidden="true"></canvas>
@@ -66,6 +74,7 @@
       <a href="%VITE_INFO_URL%">info.3m4.net</a>
       <a href="https://elevenlabs.io" target="_blank" rel="noopener">Voice by elevenlabs.io</a>
       <button id="share-btn" type="button" data-i18n="share"></button>
+      <div id="support-footer" class="support-mount"></div>
     </footer>
     <script type="module" src="/src/game/main.ts"></script>
   </body>

@@ -15,6 +15,9 @@ ARG VITE_ACCOUNTS_URL=https://accounts.3m4.net
 ENV VITE_ACCOUNTS_URL=$VITE_ACCOUNTS_URL
 ARG VITE_API_URL=https://api.bubbles.3m4.net
 ENV VITE_API_URL=$VITE_API_URL
+# Payments portal (pay.js donate button).
+ARG VITE_PAYMENTS_URL=https://payments.3m4.net
+ENV VITE_PAYMENTS_URL=$VITE_PAYMENTS_URL
 RUN bun run build
 
 FROM nginx:alpine

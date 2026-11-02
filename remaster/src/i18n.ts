@@ -82,6 +82,8 @@ export interface Strings {
   verifyToSave: string;
   onlineBest: (n: number) => string;
   newOnlineRecord: string;
+  // pay.js donate button label (payments.3m4.net), see applyEmbedLabels()
+  donate: string;
 }
 
 export function t(): Strings {
@@ -126,5 +128,19 @@ export function t(): Strings {
     verifyToSave: get("verifyToSave"),
     onlineBest: (n) => fmt(get("onlineBest"), { n }),
     newOnlineRecord: get("newOnlineRecord"),
+    donate: get("donate"),
   };
+}
+
+// Third-party embeds whose label is a catalog key: the pay.js donate button
+// (payments.3m4.net, CONTRACT.md §10) is loaded by <script data-i18n-label>
+// tags in index.html / play/index.html. pay.js re-reads `data-label` on every
+// render and re-renders when <html lang> changes, so each page's apply() calls
+// this before it sets document.documentElement.lang and the button follows the
+// language switch without being re-inserted.
+export function applyEmbedLabels(strings: Strings = t()): void {
+  for (const el of document.querySelectorAll<HTMLElement>("script[data-i18n-label]")) {
+    const value = strings[el.dataset.i18nLabel as keyof Strings];
+    if (typeof value === "string") el.dataset.label = value;
+  }
 }
