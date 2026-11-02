@@ -9,6 +9,8 @@ interface ImportMetaEnv {
   readonly VITE_ACCOUNTS_URL: string;
   /** Bubbles API origin (api/): online scores for signed-in players. Defaulted in vite.config.ts. */
   readonly VITE_API_URL: string;
+  /** payments.3m4.net origin: the pay.js donate button (index.html, play/index.html). Defaulted in vite.config.ts. */
+  readonly VITE_PAYMENTS_URL: string;
 }
 
 interface ImportMeta {
