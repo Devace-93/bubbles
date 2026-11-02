@@ -27,6 +27,10 @@
        catalog key (data-i18n-label) on every language apply(), and pay.js re-renders when <html lang> changes. -->
   <script src="%VITE_PAYMENTS_URL%/pay.js" data-app="bubbles" data-kind="donate" data-currency="usd" data-amount="500" data-label="Buy me a coffee ☕" data-i18n-label="donate" data-mount="#support-top" defer></script>
   <script src="%VITE_PAYMENTS_URL%/pay.js" data-app="bubbles" data-kind="donate" data-currency="usd" data-amount="500" data-label="Buy me a coffee ☕" data-i18n-label="donate" data-mount="#support-footer" defer></script>
+  <!-- pay.js supporters list (footer): the opted-in donors of bubbles plus every public GitHub sponsor, as a row of
+       chips under a title. Public (not gated); it renders nothing while the list is empty, so the mount stays hidden.
+       The title is the `supporters` catalog key, rewritten by applyEmbedLabels() like the donate label. -->
+  <script src="%VITE_PAYMENTS_URL%/pay.js" data-app="bubbles" data-kind="supporters" data-limit="24" data-label="Thanks to our supporters" data-i18n-label="supporters" data-mount="#supporters" defer></script>
   </head>
   <body>
     <div id="app">
@@ -66,6 +70,7 @@
         <section id="leaderboard" class="leaderboard" aria-live="polite" hidden></section>
       </main>
       <footer>
+        <div id="supporters" class="supporters-mount"></div>
         <a data-i18n="madeBy" href="https://www.linkedin.com/in/enrique-magallon/" target="_blank" rel="noopener"></a>
         <a href="https://github.com/Devace-93/bubbles" data-i18n="source"></a>
         <a href="%VITE_INFO_URL%">info.3m4.net</a>
