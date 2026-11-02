@@ -11,7 +11,7 @@ process.env.VITE_INFO_URL ??= "https://info.3m4.net";
 // at the accounts stack on :8085 and `docker compose up` in api/ on :8000.
 process.env.VITE_ACCOUNTS_URL ??= "https://accounts.3m4.net";
 process.env.VITE_API_URL ??= "https://api.bubbles.3m4.net";
-// Payments portal: index.html / play/index.html load its pay.js donate button.
+// Payments portal: index.html / play/index.html load its pay.js donate button (and index.html its supporters list).
 process.env.VITE_PAYMENTS_URL ??= "https://payments.3m4.net";
 
 // The remaster's visuals are original art (public/art/); only the legacy

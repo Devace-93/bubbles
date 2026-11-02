@@ -84,6 +84,8 @@ export interface Strings {
   newOnlineRecord: string;
   // pay.js donate button label (payments.3m4.net), see applyEmbedLabels()
   donate: string;
+  // pay.js supporters list title (payments.3m4.net), see applyEmbedLabels()
+  supporters: string;
 }
 
 export function t(): Strings {
@@ -129,6 +131,7 @@ export function t(): Strings {
     onlineBest: (n) => fmt(get("onlineBest"), { n }),
     newOnlineRecord: get("newOnlineRecord"),
     donate: get("donate"),
+    supporters: get("supporters"),
   };
 }
 

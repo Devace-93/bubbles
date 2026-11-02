@@ -69,6 +69,18 @@ body {
   display: none;
 }
 
+/* pay.js supporters list (footer): its own full-width row above the links;
+   the widget never mounts while the list is empty, so :empty hides the row. */
+.supporters-mount {
+  flex-basis: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.supporters-mount:empty {
+  display: none;
+}
+
 #banner {
   margin: 8px auto 0;
   max-width: 520px;
